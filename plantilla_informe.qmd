@@ -1,7 +1,7 @@
 ---
 title: "Título del trabajo grupal"
 subtitle: "R para el análisis de datos"
-author: "Kevin Carrasco"
+author: "Elisa Matte y Leandro Suarez"
 date: "2025-04-07"
 lang: es
 format: html
