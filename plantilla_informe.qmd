@@ -6,6 +6,7 @@ date: "2025-04-07"
 lang: es
 format: html
 editor: visual
+bibliography: references.bib
 ---
 
 # Introducción
@@ -16,9 +17,7 @@ En este ejemplo daremos una mirada a la salud mental, y exploraremos posibles as
 
 # Variables
 
-Aqui ponemos las variables, de acuerdo con las instrucciones.
-
-Podemos cargar las librerías sin que aparezca en nuestro informe, señalando la especificación al chunk `echo=FALSE`.
+Ahora se cargará la base de datos a utilizar:
 
 ```{r librerias, echo=FALSE, warning=FALSE, message=FALSE, collapse=TRUE}
 library(pacman)
@@ -34,112 +33,78 @@ pacman::p_load(tidyverse,   # manipulacion datos
 
 options(scipen = 999) # para desactivar notacion cientifica
 rm(list = ls()) # para limpiar el entorno de trabajo
+
+list.files("input")
 ```
 
-Esto lo podemos repetir para la carga de la base de datos y el procesamiento de los datos.
+A continuación procesaremos las variables seleccionadas para realizar el análisis propuesto:
 
 ```{r datos, echo=FALSE, warning=FALSE, message=FALSE}
-base <- read_dta("input/BBDD_Respuesta_Encuesta_Jovenes.dta") 
+base <- read_dta("input/BBDD_Respuesta _Encuesta_ Jovenes.dta")
+dim(base)
+ls(base) 
+
+view(base$SEXO)
+view(base$P77_1)
+
+base$SEXO <- as_factor(base$SEXO)
+view(base$SEXO)
+
+base$P77_1 <- as_factor(base$P77_1)
+view(base$P77_1)
+
+proc_data <- base %>% select(SEXO, # sexo entrevistado/a
+                          P77_1) #frecuencia de consumo de alcohol 
+names(proc_data)
+
+sjlabelled::get_label(proc_data)
+
+proc_data <- proc_data %>% rename("f_consumo_alcohol"=P77_1)
+proc_data <- proc_data %>% rename("sexo"=SEXO)
+library(sjlabelled)
+
+proc_data$f_consumo_alcohol <- sjlabelled::set_label(proc_data$f_consumo_alcohol, label = "FrecuenciaConsumo: Alcohol")
+sjlabelled::get_label(proc_data$f_consumo_alcohol)
+
+sjlabelled::get_label(proc_data$sexo)
+unique(proc_data$f_consumo_alcohol)
+
+library(dplyr)
+proc_data <- proc_data %>%
+  mutate(f_consumo_alcohol = case_when(
+    f_consumo_alcohol %in% c("Una vez al mes o menos", "Varias veces al mes") ~ "mensualmente",
+    f_consumo_alcohol %in% c("Varias veces a la semana") ~ "semanalmente",
+    f_consumo_alcohol %in% c("Varias veces al día") ~ "diariamente"))
+
+unique(proc_data$sexo)
+proc_data$sexo <- car::recode(proc_data$sexo, "'1. Hombre'='hombre'; '2. Mujer'='mujer'")
 ```
 
-A continuación, en nuestro ejemplo describiremos las variables necesarias para responder a nuestro objetivo.
+En el siguiente apartado, en nuestro ejemplo describiremos las variables necesarias para responder a nuestro objetivo.
 
 ## Descripción de variables
 
-En este ejemplo, se seleccionaron las variables:
+Para este análisis, se seleccionaron las variables:
 
--   sexo: sexo del encuestado, con nivel de medición nominal
--   frecuencia de consumo de alcohol: cada cuánto consumen alcohol los/as entrevistados/as, con nivel de medición
-
-Y las variables del módulo de Salud y Bienestar, referentes a *Estado de ánimo: sintomatología depresiva*, con nivel de medición ordinal, los ítems son los siguientes:
-
--   Frecuencia: Poco interés o alegría
--   Frecuencia: Decaimiento, pesadez o desesperanza
--   Frecuencia: Dificultad para dormir o exceso de sueño
--   Frecuencia: Cansancio o sensación de falta de energía
--   Frecuencia: Apetito disminuido o aumentado
--   Frecuencia: Dificultad para concentrarse
--   Frecuencia: Mala opinión de sí mismo
--   Frecuencia: Enlentecimiento físico
--   Frecuencia: Pensamiento de muerte o dañarse
+-   sexo: sexo del encuestado, con nivel de medición nominal.
+-   frecuencia de consumo de alcohol: frecuencia de consumo de alcohol del encuestado/a con nivel de medición ordinal.
 
 ```{r, echo=FALSE}
-include_graphics("https://www.desarrollosocialyfamilia.gob.cl/storage/image/banner-saludmental.png")
-```
+proc_data <- proc_data %>%
+  mutate(f_consumo_alcohol = recode(f_consumo_alcohol, "NS/NR" = NA_character_))
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-tab1 <- data %>%
-  group_by(as.factor(sexo)) %>% # agrupamos por sexo
-  summarise(n = n()) %>% # contamos por categ de respuesta
-  mutate(prop = round((n / sum(n)) * 100, 2)) # porcentaje
- 
-pm <- as.numeric(tab1[2,3])
-ph <- as.numeric(tab1[1,3])
 
-tabla1 <- tab1 %>% 
-  kableExtra::kable(format = "html",
-                    align = "c",
-                    col.names = c("Sexo", "n", "Proporción"),
-                    caption = "Tabla 1. Distribución de sexo") %>% 
-  kableExtra::kable_classic(full_width = FALSE, position = "center", font_size = 14) %>% 
-  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a ELSOC 2016.")
-```
 
-En la @tbl-sexo podemos ver que la proporción de mujeres que responde la encuesta corresponde a `r pm`%, mientras que la propoción de hombres corresponde a `r ph`%.
+summarytools::dfSummary(proc_data, plain.ascii = FALSE)
+library(sjPlot)
+sjt.xtab(proc_data$f_consumo_alcohol, proc_data$sexo, encoding = "UTF-8")
 
-```{r tbl-sexo, echo=FALSE, warning=FALSE, message=FALSE}
-#| label: tbl-sexo
-#| tbl-cap: "Distribución de sexo"
-#| tbl-cap-location: top
-#| warning: false
-tabla1
-```
-
-# Análisis
-
-Aqui ponemos el análisis, de acuerdo con la [pauta](https://correlacional.netlify.app/trabajos).
-
-En nuestro ejemplo, analizaremos la correlación entre algunas variables.
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-cor_edad_dep <- cor(data$edad, data$sint_depresivos)
-cor_nedu_dep <- cor(data$nedu, data$sint_depresivos)
-cor_nedu_edad <- cor(data$nedu, data$edad)
-```
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-g1 <- data %>% 
-  group_by(nedu) %>% 
-  summarise(sint_dep = mean(sint_depresivos, na.rm = T),
-            edad=mean(edad, na.rm = T))
-
-grafico1 <- ggplot(data = g1,
-       mapping = aes(x = sint_dep, y = edad, label = nedu)) +
-  geom_point() +
-  geom_smooth(method = "lm",colour = "black",fill="lightblue",size=0.5) + 
-  labs(x = "Sintomatología depresiva",
-       y = "Edad",
-       caption = "Fuente: Elaboración propia en base a ELSOC 2026") +
-  theme_bw()
-
-```
-
-En la @fig-cor_edad_dep es posible apreciar... La correlación entre la edad y el promedio de la sintomatología depresiva corresponde a `r cor_edad_dep`.
-
-```{r fig-cor_edad_dep, echo=FALSE}
-#| label: fig-cor_edad_dep
-#| fig-cap: "Correlación entre edad y sintomatología depresiva"
-#| warning: false
-#| message: false
-#| fig-align: center
-#| out-width: 80%
-grafico1
 ```
 
 # Conclusiones
 
-Aqui redactamos algunas conclusiones, de acuerdo con la [pauta](https://correlacional.netlify.app/trabajos).
+Revisando los resultados, a través de la primera tabla, nos damos cuenta de que en todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Además, la mayor cantidad de mujeres, se concentra en la opción que demuestra un menor consumo, siendo esta la del consumo mensual. Esta conclusión fue esperada, ya que, como sabemos, al vivir en una sociedad heteropatriarcal, la formación valórica y educativa de los sujetos, lleva un sesgo de género que atribuye esteriotipos a cada uno de ellos. Es así que, las mujeres se consideran como sujetas sensibles que expresan sus sentimientos, mientras que los hombres deben ser fuertes, protectores, valientes... No es raro haber escuchado la creencia de que "los hombres no lloran". Tal como plantea [@ramos-lira] los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. "La depresión puede estar “escondida” detrás de comportamientos adictivos y de riesgo, así como detrás de la irritabilidad e impulsividad." (p.275)
 
-# Biliografía
+# Bibliografía
 
 Aquí debería aparecer automáticamente la bibliografía que agregamos con Zotero
