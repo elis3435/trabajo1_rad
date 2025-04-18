@@ -1,0 +1,167 @@
+---
+title: "Consumo de alcohol y género"
+subtitle: "R para el análisis de datos"
+author: "Elisa Matte y Leandro Suarez"
+date: "2025-04-18"
+lang: es
+format: html
+editor: visual
+bibliography: references.bib
+---
+
+# Introducción
+
+En este trabajo se llevará a cabo una investigación sobre la posible influencia que tiene el sexo de una persona con la frecuencia en la que consume alcohol. Para ello, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, en ella se seleccionaron las variables P77 y SEXO, las cuales corresponden sobre la frecuencia del consumo de alcohol en jóvenes y el sexo de la persona encuestada. Creemos que es relevante poder ver qué relaciones existen entre estas variables, ya que, las políticas públicas para la moderación del consumo de alcohol, y también la prevención de consumo de otras sustancias, están destinadas para la población en general, sin embargo, no hay políticas enfocadas en el sexo de las personas consumidoras.
+
+En este sentido, proponemos una hipótesis, la cual consiste en que el sexo masculino está, mayormente, predispuesto a consumir alcohol, dado que los hombres "subreporten problemas de salud mental por su dificultad para buscar ayuda si los aqueja algún malestar emocional" [@ramos-lira]. Bajo este supuesto, sostenemos nuestra hipótesis
+
+A raíz de esto, es sumamente relevante el hecho de investigar esta problemática, pues, a pesar de que se ha estudiado en otros países, es sumamente enriquecedor, para el conocimiento cientifico, observar este problema en la población de mujeres y hombres chilenos. A la vez, los resultados que se obtengan en este estudio puede ser un gran aporte para formar un posible perfil, en base al sexo, de consumidores de bebidas alcoholicas. Esto ultimo es importante, porque, el consumo de bebidas alcoholicas puede afectar de manera negativa a la salud de quienes las consumen en exceso. Puede provocar "accidentes de trafico, reyertas callejeras, agresiones sexuales, problemas de addiccion" [@marcelelipemiravet2021]. Por lo tanto, es de suma importancia de impulsar un análisis de esta problemática en razón del género que facilite los procesos de diseño e implementación de políticas y actuaciones, tanto preventivas como terapéuticas [@cabanillas-rojas2020].
+
+# Variables
+
+## Descripción de variables
+
+Para este análisis, se seleccionaron las variables:
+
+-   SEXO: sexo del encuestado, con nivel de medición nominal.
+-   f_consumo_alcohol (P77_1): frecuencia de consumo de alcohol del encuestado/a con un nivel de medición ordinal.
+
+Ahora se cargarán los paquetes a utilizar
+
+```{r librerias, echo=FALSE, warning=FALSE, message=FALSE, collapse=TRUE}
+install.packages("pacman")
+library(pacman)
+pacman::p_load(tidyverse,   # manipulacion datos.
+               sjPlot,      # tablas.
+               stargazer,   # tablas.
+               confintr,    # IC.
+               gginference, # visualizacion .
+               rempsyc,     # reporte.
+               broom,       # varios.
+               sjmisc,      # para descriptivos .
+               sjlabelled,  # etiquetas.
+               knitr)
+                     
+options(scipen = 999) # para desactivar notacion cientifica.
+rm(list = ls()) # para limpiar el entorno de trabajo.
+
+list.files("input")
+```
+
+A continuación procesaremos las variables seleccionadas para realizar el análisis propuesto:
+
+```{r datos, echo=FALSE, warning=FALSE, message=FALSE}
+## Cargar base de datos ENJUV 2022 (base de jovenes)
+base <- read_dta("input/BBDD_Respuesta _Encuesta_ Jovenes.dta")
+dim(base)
+ls(base) 
+
+## Visualizar variables
+view(base$SEXO) # Sexo de la persona encuestada.
+view(base$P77_1) # Frecuencia de consumo de alcohol.
+
+base$P77_1 <- na_if(base$P77_1, 99) # Tratar los 99 (NS/NR) como NA.
+
+## Posicionar variables como factor.
+base$SEXO <- as_factor(base$SEXO)
+view(base$SEXO)
+
+base$P77_1 <- as_factor(base$P77_1)
+view(base$P77_1)
+
+proc_data <- base %>% select(SEXO, 
+                             P77_1) 
+
+## Eliminar casos perdidos (NA).
+sum(is.na(proc_data)) # Cantidad de casos perdidos.
+
+proc_data <-na.omit(proc_data) 
+dim(proc_data)
+view(proc_data)
+
+## Renombrar ambas variables.
+sjlabelled::get_label(proc_data)
+
+proc_data <- proc_data %>% rename("f_consumo_alcohol"=P77_1)
+proc_data <- proc_data %>% rename("Sexo"=SEXO)
+
+sjlabelled::get_label(proc_data)
+
+## Re-etiquetar la variable "f_consumo_alcohol" para visualizacion posterior.
+proc_data$f_consumo_alcohol <- sjlabelled::set_label(proc_data$f_consumo_alcohol, label = "Frecuencia de Consumo: Alcohol")
+sjlabelled::get_label(proc_data$f_consumo_alcohol)
+
+sjlabelled::get_label(proc_data$Sexo)
+unique(proc_data$f_consumo_alcohol)
+
+## Modificar etiquetas de ambas variables.
+proc_data <- proc_data %>%
+  mutate(f_consumo_alcohol = case_when(
+    f_consumo_alcohol %in% c("Una vez al mes o menos", "Varias veces al mes") ~ "Mensualmente",
+    f_consumo_alcohol %in% c("Varias veces a la semana") ~ "Semanalmente",
+    f_consumo_alcohol %in% c("Varias veces al día") ~ "Diariamente"))
+
+unique(proc_data$Sexo)
+proc_data$Sexo <- car::recode(proc_data$Sexo, "'1. Hombre'='Hombre'; '2. Mujer'='Mujer'")
+
+view(proc_data)
+```
+
+## Tablas e interpretación
+
+En el siguiente apartado se pueden visualizar 2 tipos de tablas, una incluye las frecuencias de los datos observados, mientras que la otra corresponde a una tabla de contingencia.
+
+```{r, echo=FALSE}
+proc_data <- proc_data %>%
+  mutate(f_consumo_alcohol = recode(f_consumo_alcohol, "NS/NR" = NA_character_))
+
+## Generamos una tabla con los estadisticos descriptivos.
+summarytools::dfSummary(proc_data, plain.ascii = FALSE)
+
+## Generamos una tabla de contingencia. 
+sjt.xtab(proc_data$f_consumo_alcohol, proc_data$Sexo, encoding = "UTF-8")
+```
+
+En la primera tabla que se muestra, se puede observar que existe una gran tendencia a que las personas encuestadas consuman bebidas alcoholicas al menos una vez al mes. Lo mismo pasas si observamos la tabla de contingencia, con un detalle no menor de que las mujeres son las que más consumen bebidas alcoholicas de manera mensual, 2710 mujeres consumen alcohol al menos una vez al mes, mientras que solo 2276 son los hombres que beben alcohol al menos una vez al mes. Sin embargo, son los hombres los que beben al menos una vez a la semana con 2276 de ellos, a diferencia de las mujeres, que solo 177 de estas beben en esa frecuencia.
+
+## Gráficos e interpretación
+
+A continuacion, se mostrarán 2 graficos en los que se pueden visualizar de mejor manera la distribución de los casos observados:
+
+```{r}
+#| echo: true
+graph_f_consumo_alcohol <- proc_data %>% ggplot(aes(x = f_consumo_alcohol)) + 
+  geom_bar(fill = "lightgreen")+
+  labs(title = "Frecuencia de consumo de alcohol",
+       x = "Consumo de alcohol",
+       y = "Frecuencia") +
+  theme_bw()
+graph_f_consumo_alcohol
+
+## Guardamos la imagen como png dentro de la carpeta output.
+ggsave(graph_f_consumo_alcohol, file="output/graph1.png")
+```
+
+Viendo este gráfico, los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Ahora bien, en el entendido de que esta encuesta fue aplicada a un grupo de personas que va desde los 15 a los 29 años, se pierde un gran tramo de personas que no son mayores de edad y, por lo tanto, en la teoría, no deberían consumir alcohol, por lo que, quizás, esta podría ser una razón para explicar estos resultados.
+
+```{r}
+graph2 <- proc_data %>% ggplot(aes(x = f_consumo_alcohol, fill = Sexo)) + 
+  geom_bar() +
+  xlab("Consumo de alcohol") +
+  ylab("Frecuencia") + 
+  labs(fill="Sexo")+
+  scale_fill_discrete(labels = c('Hombre','Mujer'))
+
+graph2
+
+## Guardamos la imagen como png dentro de la carpeta output. 
+ggsave(graph2, file="output/graph2.png")
+```
+
+Los resultados de este gráfico siguen siendo preocupantes para la población masculina, ya que la mayoría de los y las encuestadas que ubican su frecuencia de consumo de alcohol en diario, en vez de mensual o semanal, corresponden a hombres. Esto sólo sigue explicando la tendencia adictiva que tiene este género por las atribuciones socioculturales que se tienen hacia su rol, con un conjunto de expectativas que tiene la sociedad y que llevan a los hombres a realizar este tipo de prácticas, como en este caso, el consumo regular de alcohol.
+
+# Conclusiones
+
+Revisando los resultados, a través de la primera tabla, nos damos cuenta de que en todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Además, la mayor cantidad de mujeres, se concentra en la opción que demuestra un menor consumo, siendo esta la del consumo mensual. Esta conclusión fue esperada, ya que, como sabemos, al vivir en una sociedad heteropatriarcal, la formación valórica y educativa de los sujetos, lleva un sesgo de género que atribuye estereotipos a cada uno de ellos. Es así que, las mujeres se consideran como sujetos sensibles que expresan sus sentimientos, mientras que los hombres deben ser fuertes, protectores, valientes. No es raro haber escuchado la creencia de que "los hombres no lloran". Tal como plantea [@ramos-lira], los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. "La depresión puede estar “escondida” detrás de comportamientos adictivos y de riesgo, así como detrás de la irritabilidad e impulsividad" (p.275). Es por esta misma razón que razón que, generalmente, los hombres sobrellevan sus problemas personales, o bien, manifiestan trastornos como la depresión, estrés, ansiedad, o cualquier otro trastorno, mediante el consumo desmedido de alcohol o, incluso, otro tipo de sustancias.
+
+# Bibliografía
