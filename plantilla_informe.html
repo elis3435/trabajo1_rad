@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -98,14 +132,26 @@ div.csl-indent {
 
 <section id="introducción" class="level1">
 <h1>Introducción</h1>
-<p>Aqui ponemos la introducción, de acuerdo con las instrucciones.</p>
-<p>En este ejemplo daremos una mirada a la salud mental, y exploraremos posibles asociaciones con la edad, sexo y nivel educacional.</p>
+<p>En este trabajo se llevará a cabo una investigacion sobre la posible influencia que tiene el sexo de una persona con la frecuencia en la que consume alcohol. Para ello, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, en ella se seleccionaron las variables P77 y SEXO, las cuales corresponden sobre la frecuencia del consumo de alcohol en jóvenes y el sexo de la persona encuestada. Creemos que es relevante poder ver qué relaciones existen entre estas variables, ya que, las políticas públicas para la moderación del consumo de alcohol, y también la prevención de consumo de otras sustancias, están destinadas para la población en general, sin embargo, no hay políticas enfocadas en el sexo de las personas consumidoras.</p>
+<p>A raíz de esto, es sumamente relevante el hecho de investigar esta problemática, pues, a pesar de que se ha estudiado en otros países, es sumamente enriquecedor, para el conocimiento cientifico, observar este problema en la población de mujeres y hombres chilenos. A la vez, los resultados que se obtengan en este estudio puede ser un gran aporte para formar un posible perfil, en base al sexo, de consumidores de bebidas alcoholicas. Esto ultimo es importante, porque, el consumo de bebidas alcoholicas puede afectar de manera negativa a la salud de quienes las consumen en exceso. Puede provocar “accidentes de trafico, reyertas callejeras, agresiones sexuales, problemas de addiccion” <span class="citation" data-cites="marcelelipemiravet2021">(<a href="#ref-marcelelipemiravet2021" role="doc-biblioref">Marcel Elipe Miravet et&nbsp;al. 2021</a>)</span>.</p>
 </section>
 <section id="variables" class="level1">
 <h1>Variables</h1>
 <p>Ahora se cargará la base de datos a utilizar:</p>
 <div class="cell">
-<pre><code>## [1] "BBDD_Respuesta _Encuesta_ Jovenes.dta"
+<pre><code>## package 'pacman' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\elisa\AppData\Local\Temp\RtmpgD8dyZ\downloaded_packages
+## package 'kableExtra' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\elisa\AppData\Local\Temp\RtmpgD8dyZ\downloaded_packages
+## package 'haven' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\elisa\AppData\Local\Temp\RtmpgD8dyZ\downloaded_packages
+## [1] "BBDD_Respuesta _Encuesta_ Jovenes.dta"
 ## [2] "img"</code></pre>
 </div>
 <p>A continuación procesaremos las variables seleccionadas para realizar el análisis propuesto:</p>
@@ -236,7 +282,10 @@ div.csl-indent {
 [477] "ZONA"         </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "SEXO"  "P77_1"</code></pre>
+<pre><code>[1] 4187</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5513    2</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                            SEXO 
@@ -245,14 +294,20 @@ div.csl-indent {
 "P77_1. Alcohol (cerveza, vino, pisco, ron u otro licor fuerte)" </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "FrecuenciaConsumo: Alcohol"</code></pre>
+<pre><code>                                                            Sexo 
+                                                          "Sexo" 
+                                               f_consumo_alcohol 
+"P77_1. Alcohol (cerveza, vino, pisco, ron u otro licor fuerte)" </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Frecuencia de Consumo: Alcohol"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sexo"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] Una vez al mes o menos   Varias veces al mes      &lt;NA&gt;                    
-[4] Varias veces a la semana Varias veces al día      NS/NR                   
+<pre><code>[1] Una vez al mes o menos   Varias veces al mes      Varias veces a la semana
+[4] Varias veces al día     
 6 Levels: Varias veces al día Varias veces a la semana ... NS/NR</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -265,56 +320,56 @@ Levels: 1. Hombre 2. Mujer</code></pre>
 <h2 class="anchored" data-anchor-id="descripción-de-variables">Descripción de variables</h2>
 <p>Para este análisis, se seleccionaron las variables:</p>
 <ul>
-<li>sexo: sexo del encuestado, con nivel de medición nominal.</li>
-<li>frecuencia de consumo de alcohol: frecuencia de consumo de alcohol del encuestado/a con nivel de medición ordinal.</li>
+<li>SEXO: sexo del encuestado, con nivel de medición nominal.</li>
+<li>f_consumo_alcohol (P77_1): frecuencia de consumo de alcohol del encuestado/a con un nivel de medición ordinal.</li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>### Data Frame Summary  
 #### proc_data  
-**Dimensions:** 9700 x 2  
-**Duplicates:** 9692  
+**Dimensions:** 5513 x 2  
+**Duplicates:** 5507  
 
 ---------------------------------------------------------------------------------------------------------------
 No   Variable             Stats / Values      Freqs (% of Valid)   Graph                   Valid      Missing  
 ---- -------------------- ------------------- -------------------- ----------------------- ---------- ---------
-1    sexo\                1\. hombre\         4335 (44.7%)\        IIIIIIII \              9700\      0\       
-     [factor]             2\. mujer           5365 (55.3%)         IIIIIIIIIII             (100.0%)   (0.0%)   
+1    Sexo\                1\. Hombre\         2592 (47.0%)\        IIIIIIIII \             5513\      0\       
+     [factor]             2\. Mujer           2921 (53.0%)         IIIIIIIIII              (100.0%)   (0.0%)   
 
-2    f_consumo_alcohol\   1\. diariamente\    83 ( 1.5%)\          \                       5513\      4187\    
-     [character]          2\. mensualmente\   4986 (90.4%)\        IIIIIIIIIIIIIIIIII \    (56.8%)    (43.2%)  
-                          3\. semanalmente    444 ( 8.1%)          I                                           
+2    f_consumo_alcohol\   1\. Diariamente\    83 ( 1.5%)\          \                       5513\      0\       
+     [character]          2\. Mensualmente\   4986 (90.4%)\        IIIIIIIIIIIIIIIIII \    (100.0%)   (0.0%)   
+                          3\. Semanalmente    444 ( 8.1%)          I                                           
 ---------------------------------------------------------------------------------------------------------------</code></pre>
 </div>
 <div class="cell-output-display">
 <table style="border-collapse:collapse; border:none;">
  <tbody><tr>
  <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">f_consumo_alcohol</th>
- <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">sexo</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">Sexo</th>
  <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
  </tr>
  
 <tr>
- <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">hombre</td>
- <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">mujer</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">Hombre</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">Mujer</td>
  </tr>
  
 <tr> 
-<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">diariamente</td>
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Diariamente</td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">49</span></td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">34</span></td>
 <td style="padding:0.2cm; text-align:center;  "><span style="color:black;">83</span></td> 
 </tr>
  
 <tr> 
-<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">mensualmente</td>
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Mensualmente</td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">2276</span></td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">2710</span></td>
 <td style="padding:0.2cm; text-align:center;  "><span style="color:black;">4986</span></td> 
 </tr>
  
 <tr> 
-<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">semanalmente</td>
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Semanalmente</td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">267</span></td>
 <td style="padding:0.2cm; text-align:center; "><span style="color:black;">177</span></td>
 <td style="padding:0.2cm; text-align:center;  "><span style="color:black;">444</span></td> 
@@ -333,10 +388,49 @@ No   Variable             Stats / Values      Freqs (% of Valid)   Graph        
 </div>
 </div>
 </section>
+<section id="graficos" class="level2">
+<h2 class="anchored" data-anchor-id="graficos">Graficos</h2>
+<p>A continuacion, se mostrarán 2 graficos en los que se pueden visualizar de mejor manera los</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>graph1 <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> f_consumo_alcohol)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>)<span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia de consumo de alcohol"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Consumo de alcohol"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frecuencia"</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>graph1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plantilla_informe_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>graph2 <span class="ot">&lt;-</span> proc_data <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> f_consumo_alcohol, <span class="at">fill =</span> Sexo)) <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Consumo de alcohol"</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Frecuencia"</span>) <span class="sc">+</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Sexo"</span>)<span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Hombre'</span>,<span class="st">'Mujer'</span>))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>graph2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="plantilla_informe_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="conclusiones" class="level1">
 <h1>Conclusiones</h1>
-<p>Revisando los resultados, a través de la primera tabla, nos damos cuenta de que en todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Además, la mayor cantidad de mujeres, se concentra en la opción que demuestra un menor consumo, siendo esta la del consumo mensual. Esta conclusión fue esperada, ya que, como sabemos, al vivir en una sociedad heteropatriarcal, la formación valórica y educativa de los sujetos, lleva un sesgo de género que atribuye esteriotipos a cada uno de ellos. Es así que, las mujeres se consideran como sujetas sensibles que expresan sus sentimientos, mientras que los hombres deben ser fuertes, protectores, valientes… No es raro haber escuchado la creencia de que “los hombres no lloran”. Tal como plantea <span class="citation" data-cites="ramos-lira">(<a href="#ref-ramos-lira" role="doc-biblioref">Ramos-Lira, s.&nbsp;f.</a>)</span> los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. “La depresión puede estar “escondida” detrás de comportamientos adictivos y de riesgo, así como detrás de la irritabilidad e impulsividad.” (p.275)</p>
+<p>Revisando los resultados, a través de la primera tabla, nos damos cuenta de que, en todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Además, la mayor cantidad de mujeres, se concentra en la opción que demuestra un menor consumo, siendo esta la del consumo mensual. Esta conclusión fue esperada, ya que, como sabemos, al vivir en una sociedad heteropatriarcal, la formación valórica y educativa de los sujetos, lleva un sesgo de género que atribuye esteriotipos a cada uno de ellos. Es así que, las mujeres se consideran como sujetas sensibles que expresan sus sentimientos, mientras que los hombres deben ser fuertes, protectores, valientes… No es raro haber escuchado la creencia de que “los hombres no lloran”. Tal como plantea <span class="citation" data-cites="ramos-lira">(<a href="#ref-ramos-lira" role="doc-biblioref">Ramos-Lira, s.&nbsp;f.</a>)</span> los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. “La depresión puede estar “escondida” detrás de comportamientos adictivos y de riesgo, así como detrás de la irritabilidad e impulsividad.” (p.275)</p>
+<p>Viendo el gráfico 1 los resultados resultan novedosos, ya que, como percepción previa se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, como redes sociales, se “incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros.”<span class="citation" data-cites="cabanillas-rojas2020">(<a href="#ref-cabanillas-rojas2020" role="doc-biblioref">Cabanillas-Rojas 2020</a>)</span> Ahora bien, en el entendido de que la encuesta es aplicada a un grupo de personas que va desde los 15 a los 29 años, se pierde un gran tramo de personas que no son mayores de edad y, por lo tanto, en la teoría, no deberían consumir alcohol, por lo que, quizás, esta podría ser una razón para explicar estos resultados.</p>
+<p>Por otra parte, los resultados del gráfico 2 siguen siendo preocupantes para la población masculina, ya que la mayoría de los/as encuestados/as que responden que su consumo es diario antes que mensual o semanal, son hombres. Esto sólo sigue explicando la tendencia adictiva que tiene este género por las atribuciones socioculturales que se tienen hacia su rol, con expectativas que llevan prácticas de este tipo.</p>
 </section>
 <section id="bibliografía" class="level1">
 <h1>Bibliografía</h1>
@@ -345,6 +439,12 @@ No   Variable             Stats / Values      Freqs (% of Valid)   Graph        
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cabanillas-rojas2020" class="csl-entry" role="listitem">
+Cabanillas-Rojas, William. 2020. <span>«Consumo de alcohol y género en la población adolescente escolarizada del Perú: evolución y retos de intervención»</span>. <em>Revista Peruana de Medicina Experimental y Salud Pública</em> 37 (1): 148-54. <a href="https://doi.org/10.17843/rpmesp.2020.371.5151">https://doi.org/10.17843/rpmesp.2020.371.5151</a>.
+</div>
+<div id="ref-marcelelipemiravet2021" class="csl-entry" role="listitem">
+Marcel Elipe Miravet, Marcel Elipe-Miravet, Verónica Cervigón Carrasco, Verónica Cervigón-Carrasco, Olga Fernández García, Olga Fernández García, Verónica Estruch, Verónica Estruch, Rafael Ballester Arnal, y Rafael Ballester-Arnal. 2021. <span>«Consumo excesivo de alcohol ¿existen diferencias de género?»</span> <em>International Journal of Developmental and Educational Psychology: INFAD. Revista de Psicología</em> 1 (2): 109-18. <a href="https://doi.org/10.17060/ijodaep.2021.n2.v1.2169">https://doi.org/10.17060/ijodaep.2021.n2.v1.2169</a>.
+</div>
 <div id="ref-ramos-lira" class="csl-entry" role="listitem">
 Ramos-Lira, Luciana. s.&nbsp;f. <span>«¿Por qué hablar de género y salud mental?»</span>
 </div>
