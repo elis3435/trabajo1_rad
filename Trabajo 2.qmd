@@ -8,7 +8,14 @@ editor: visual
 # Escala y Alfa de Chronbach
 
 ```{r}
+# Instalar y cargar paquetes necesarios.
 install.packages("pacman")
+install.packages("psych")
+
+library("pacman")
+library("psych")
+library("dplyr")
+library("sjlabelled")
 pacman::p_load(tidyverse,   # manipulacion datos.
                sjPlot,      # tablas.
                stargazer,   # tablas.
@@ -20,18 +27,23 @@ pacman::p_load(tidyverse,   # manipulacion datos.
                sjlabelled,  # etiquetas.
                knitr)
 
-options(scipen = 999) # para desactivar notacion cientifica.
-rm(list = ls()) # para limpiar el entorno de trabajo.
+## Desactivar notación científica
+options(scipen = 999) 
 
+## Limpiar entorno de trabajo.
+rm(list = ls()) 
+
+## Visualizar objetos de carpeta "Input".
 list.files("Input")
 ```
 
 ```{r}
-## Cargar base de datos ENJUV 2022 (base de jovenes)
+## Cargar base de datos ENJUV 2022 (base de jovenes).
+base <- read.dta("Encuesta_ Jovenes.dta")
 dim(base)
 ls(base) 
 
-## Visualizar variables
+## Visualizar variables.
 view(base$P102_2) # Frecuencia de la dificultad para controlar la preocupación
 view(base$P102_5) # Frecuencia de la dificultad para quedarse dormido/a
 
@@ -65,11 +77,8 @@ sjlabelled::get_label(esc_data$insomnio)
 ```
 
 ```{r}
+## Convertir las variables a numéricas para la escala y el Alfa Chronbach.
 cor(esc_data)
-#Convertiremos las variables a numéricas para la escala y el Alfa Chronbach
-
-library(dplyr)
-library(sjlabelled)
 
 esc_data <- esc_data %>%
   mutate(
@@ -84,11 +93,7 @@ esc_data <- esc_data %>%
 
 summary(esc_data$salud_mental)
 
-
-install.packages("psych")
-library(psych)
+# Aplicar Alfa de Chronbach
 psych::alpha(esc_data)
 
 ```
-
-The `echo: false` option disables the printing of code (only output is displayed).
