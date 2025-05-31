@@ -1,0 +1,54 @@
+---
+title: "Trabajo 2"
+author: "Elisa Matte y Leandro Suarez"
+format: html
+editor: visual
+---
+
+# Introducción
+
+# Variables
+
+## Descripción de variables
+
+```{r}
+install.packages("pacman")
+pacman::p_load(tidyverse,   # manipulacion datos.
+               sjPlot,      # tablas.
+               stargazer,   # tablas.
+               confintr,    # IC.
+               gginference, # visualizacion .
+               rempsyc,     # reporte.
+               broom,       # varios.
+               sjmisc,      # para descriptivos .
+               sjlabelled,  # etiquetas.
+               knitr)
+
+options(scipen = 999) # para desactivar notacion cientifica.
+rm(list = ls()) # para limpiar el entorno de trabajo.
+
+list.files("Input")
+```
+
+```{r}
+## Cargar base de datos ENJUV 2022 (base de jovenes)
+base <- read_data("Encuesta_Jovenes.dta")
+dim(base)
+ls(base) 
+
+## Visualizar variables
+view(base$P102_2) # Frecuencia de la dificultad para controlar la preocupación
+view(base$P102_5) # Frecuencia de la dificultad para quedarse dormido/a
+
+base$P102_2 <- na_if(base$P102_2, 99) # Tratar los 99 (NS/NR) como NA.
+base$P102_5 <- na_if(base$P102_5, 99) # Tratar los 99 (NS/NR) como NA.
+
+## Eliminar casos perdidos (NA).
+sum(is.na(proc_data)) # Cantidad de casos perdidos.
+
+proc_data <-na.omit(proc_data) 
+dim(proc_data)
+view(proc_data)
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
