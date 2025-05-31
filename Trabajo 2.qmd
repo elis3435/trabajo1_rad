@@ -5,11 +5,7 @@ format: html
 editor: visual
 ---
 
-# Introducción
-
-# Variables
-
-## Descripción de variables
+# Escala y Alfa de Chronbach
 
 ```{r}
 install.packages("pacman")
@@ -32,7 +28,6 @@ list.files("Input")
 
 ```{r}
 ## Cargar base de datos ENJUV 2022 (base de jovenes)
-base <- read_data("Encuesta_Jovenes.dta")
 dim(base)
 ls(base) 
 
@@ -43,12 +38,57 @@ view(base$P102_5) # Frecuencia de la dificultad para quedarse dormido/a
 base$P102_2 <- na_if(base$P102_2, 99) # Tratar los 99 (NS/NR) como NA.
 base$P102_5 <- na_if(base$P102_5, 99) # Tratar los 99 (NS/NR) como NA.
 
-## Eliminar casos perdidos (NA).
-sum(is.na(proc_data)) # Cantidad de casos perdidos.
+esc_data <- base %>% select(P102_2, 
+                      P102_5)
 
-proc_data <-na.omit(proc_data) 
-dim(proc_data)
-view(proc_data)
+## Eliminar casos perdidos (NA).
+sum(is.na(esc_data)) # Cantidad de casos perdidos.
+
+esc_data <-na.omit(esc_data) 
+dim(esc_data)
+view(esc_data)
+
+## Renombrar ambas variables.
+sjlabelled::get_label(esc_data)
+
+esc_data <- esc_data %>% rename("preocupacion"=P102_2)
+esc_data <- esc_data %>% rename("insomnio"=P102_5)
+
+sjlabelled::get_label(esc_data)
+
+## Re-etiquetar ambas variables 
+esc_data$preocupacion <- sjlabelled::set_label(esc_data$preocupacion, label = "Frecuencia : Preocupacion")
+sjlabelled::get_label(esc_data$preocupacion)
+
+esc_data$insomnio <- sjlabelled::set_label(esc_data$insomnio, label = "Frecuencia : Insomnio")
+sjlabelled::get_label(esc_data$insomnio)
+```
+
+```{r}
+cor(esc_data)
+#Convertiremos las variables a numéricas para la escala y el Alfa Chronbach
+
+library(dplyr)
+library(sjlabelled)
+
+esc_data <- esc_data %>%
+  mutate(
+    preocupacion_num = as.numeric(as_factor(preocupacion)),
+    insomnio_num = as.numeric(as_factor(insomnio))
+  )
+
+esc_data <- esc_data %>%
+  rowwise() %>%
+  mutate(salud_mental = sum(preocupacion_num, insomnio_num, na.rm = TRUE)) %>%
+  ungroup()
+
+summary(esc_data$salud_mental)
+
+
+install.packages("psych")
+library(psych)
+psych::alpha(esc_data)
+
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).
