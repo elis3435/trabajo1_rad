@@ -5,6 +5,10 @@ format: html
 editor: visual
 ---
 
+# Introducción
+
+En este trabajo, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022. En ella, utilizamos las variables P102_2 y P102_5, las cuales indican la frecuencia de la dificultad para controlar la preocupación y la frecuencia de la dificultad para quedarse dormido/a...
+
 # Escala y Alfa de Chronbach
 
 ```{r}
@@ -57,6 +61,7 @@ esc_data <- base %>% select(P102_2,
 sum(is.na(esc_data)) # Cantidad de casos perdidos.
 
 esc_data <-na.omit(esc_data) 
+
 dim(esc_data)
 view(esc_data)
 
@@ -76,6 +81,8 @@ esc_data$insomnio <- sjlabelled::set_label(esc_data$insomnio, label = "Frecuenci
 sjlabelled::get_label(esc_data$insomnio)
 ```
 
+## Escala y correlación
+
 ```{r}
 ## Convertir las variables a numéricas para la escala y el Alfa Chronbach.
 cor(esc_data)
@@ -91,9 +98,27 @@ esc_data <- esc_data %>%
   mutate(salud_mental = sum(preocupacion_num, insomnio_num, na.rm = TRUE)) %>%
   ungroup()
 
+cor(esc_data)
+
 summary(esc_data$salud_mental)
 
-# Aplicar Alfa de Chronbach
+# Aplicar prueba de Alfa de Chronbach
 psych::alpha(esc_data)
 
 ```
+
+## Interpretación de datos.
+
+...
+
+Según el resultado arrojado por la prueba de consistencia interna, es decir, alfa de Chronbach, es posible afirmar que la fiabilidad de la escala presenta bases muy aceptables en términos de asociación. Dado que, los valores arrojados por esta prueba son mayores a 0.8.
+
+## Visualización de datos
+
+```{r}
+# Tabla
+sjPlot::tab_corr(esc_data, 
+                 triangle = "lower") # Tabla para metodo listwise.
+```
+
+## Interpretación de tabla
