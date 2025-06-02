@@ -7,7 +7,7 @@ editor: visual
 
 # Introducción
 
-En este trabajo, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, encabezado por el Instituto Nacional de la Juventud. En dicha encuesta, utilizamos las variables P102_2 y P102_5, las cuales indican la frecuencia de la dificultad para controlar la preocupación y la frecuencia de la dificultad para quedarse dormido/a...
+Para la segunda etapa de este trabajo, se siguió utilizando la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, encabezado por el Instituto Nacional de la Juventud, pero ahora con ánimos de generar una escala que agrupe las variables P102_2 (dificultad para controlar la preocupación) y P102_5 (dificultad para quedarse dormido/a). Se escogieron ambas variables, ya que pertenecen a la dimensión de salud mental de la encuesta y en el análisis hecho durante la primera etapa, apoyado de la bibliografía, este concepto surgió como un supuesto que justifica la diferencia de consumo de sustancia entre hombres y mujeres. En otras palabras, la diferencia que existe entre los estados de salud mental según el género se usa como un argumento que explica las diferentes necesidades de consumo.  
 
 # Variables
 
@@ -136,6 +136,13 @@ sjPlot::tab_corr(esc_data,
 ```
 
 ## Interpretación de tabla
+Al ver que el coeficiente de correlación entre las personas que tienen dificultad para manejar la preocupación y la dificultad para dormir es de un 0.571. Al ser una relación positiva, podemos derivar como sugerencia de los resultados que a mayor preocupación, mayor dificultad para dormir. 
+
+El coeficiente entre la dificultad para controlar la preocupación y el atributo de salud mental es de 0.876, lo que se puede definir como una correlación positiva alta lo que permite decir que a mayor dificultad para controlar la preocupación, existe mayor deterioro del estado de salud mental general. Lo mismo sucede en relación con la dificultad para conciliar el sueño al tener un coeficiente de correlación del 0.896. 
+
+En síntesis, los resultados sugieren que tanto la preocupación como el insomnio están fuertemente relacionados con un estado general de salud mental más desfavorable, y que ambas variables también se correlacionan entre sí. Esto podría indicar que forman parte de un mismo fenómeno o que se retroalimentan mutuamente.
+
+
 
 # Referencias
 
