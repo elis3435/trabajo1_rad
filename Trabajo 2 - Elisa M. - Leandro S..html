@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Elisa Matte y Leandro Suarez">
+
+<title>Trabajo 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/clipboard/clipboard.min.js"></script>
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/quarto.js"></script>
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/popper.min.js"></script>
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/anchor.min.js"></script>
+<link href="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Trabajo 2 - Elisa M. - Leandro S._files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Trabajo 2 - Elisa M. - Leandro S._files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Trabajo 2 - Elisa M. - Leandro S._files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Trabajo 2 - Elisa M. - Leandro S._files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabajo 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Elisa Matte y Leandro Suarez </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción" class="level1">
+<h1>Introducción</h1>
+<p>En este trabajo, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, encabezado por el Instituto Nacional de la Juventud. En dicha encuesta, utilizamos las variables P102_2 y P102_5, las cuales indican la frecuencia de la dificultad para controlar la preocupación y la frecuencia de la dificultad para quedarse dormido/a…</p>
+</section>
+<section id="variables" class="level1">
+<h1>Variables</h1>
+<section id="descripción-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="descripción-de-variables">Descripción de variables</h2>
+<ul>
+<li>P102_2: Frecuenca de la dificultad del encuestado/a para controlar la preocupación, con nivel de medición nominal (posteriormente recodificada a numérica).</li>
+<li>P102_5: Frecuencia de la dificultad del encuestado/a para quedarse dormido/a, con un nivel de medición nominal (posteriormente recodificada a númerica).</li>
+</ul>
+<p>Ahora se cargarán los paquetes a utilizar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar y cargar paquetes necesarios.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"haven"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"psych"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjlabelled"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,   <span class="co"># manipulacion datos.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               sjPlot,      <span class="co"># tablas.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               stargazer,   <span class="co"># tablas.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               confintr,    <span class="co"># IC.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               gginference, <span class="co"># visualizacion .</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               rempsyc,     <span class="co"># reporte.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>               broom,       <span class="co"># varios.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               sjmisc,      <span class="co"># para descriptivos .</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               sjlabelled,  <span class="co"># etiquetas.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>               knitr)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Desactivar notación científica</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Limpiar entorno de trabajo.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Visualizar objetos de carpeta "Input".</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"Input"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "img"</code></pre>
+</div>
+</div>
+<p>A continuación, procesaremos las variables seleccionadas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cargar base de datos ENJUV 2022 (base de jovenes).</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"Encuesta Jovenes.dta"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9700  477</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(base) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "AUTOAPLICADO"  "COMUNA"        "CONGLOMERADO"  "EDAD"         
+  [5] "ESTRATO"       "FACTOR"        "FECHA"         "Folio"        
+  [9] "GSE"           "ID_MANZANA"    "ID_MAPA"       "NSE"          
+ [13] "NUM_VIV"       "P1_1"          "P1_10"         "P1_11"        
+ [17] "P1_12"         "P1_13"         "P1_14"         "P1_2"         
+ [21] "P1_3"          "P1_4"          "P1_5"          "P1_6"         
+ [25] "P1_7"          "P1_8"          "P1_9"          "P1_COD"       
+ [29] "P1_OTRO"       "P10"           "P100"          "P101"         
+ [33] "P102_1"        "P102_2"        "P102_3"        "P102_4"       
+ [37] "P102_5"        "P102_6"        "P102_7"        "P103"         
+ [41] "P104_1"        "P104_2"        "P104_3"        "P104_4"       
+ [45] "P104_5"        "P104_6"        "P104_7"        "P104_8"       
+ [49] "P104_9"        "P104_COD"      "P104_OTROS"    "P105_1"       
+ [53] "P105_2"        "P105_3"        "P106_1"        "P106_2"       
+ [57] "P106_3"        "P106_4"        "P106_5"        "P107_1"       
+ [61] "P107_2"        "P107_3"        "P107_4"        "P107_5"       
+ [65] "P108_1"        "P108_2"        "P108_3"        "P108_4"       
+ [69] "P108_5"        "P109_1"        "P109_2"        "P109_3"       
+ [73] "P109_4"        "P109_5"        "P109_6"        "P109_7"       
+ [77] "P109_8"        "P11_1"         "P11_2"         "P11_3"        
+ [81] "P11_4"         "P11_5"         "P11_6"         "P11_7"        
+ [85] "P110_1"        "P110_2"        "P110_3"        "P110_4"       
+ [89] "P110_5"        "P110_6"        "P110_7"        "P110_8"       
+ [93] "P111_1"        "P111_2"        "P111_3"        "P111_4"       
+ [97] "P111_5"        "P111_6"        "P111_7"        "P112_1"       
+[101] "P112_2"        "P112_3"        "P112_4"        "P112_5"       
+[105] "P112_6"        "P112_7"        "P12_1"         "P12_2"        
+[109] "P12_3"         "P12_4"         "P12_5"         "P13"          
+[113] "P14"           "P15"           "P16_1"         "P16_10"       
+[117] "P16_2"         "P16_3"         "P16_4"         "P16_5"        
+[121] "P16_6"         "P16_7"         "P16_8"         "P16_9"        
+[125] "P16_COD"       "P16_OTRO"      "P17"           "P17_COD"      
+[129] "P17_OTRO"      "P18"           "P18_COD"       "P18_OTRO"     
+[133] "P19_1"         "P19_2"         "P2_1"          "P2_10"        
+[137] "P2_11"         "P2_12"         "P2_13"         "P2_14"        
+[141] "P2_2"          "P2_3"          "P2_4"          "P2_5"         
+[145] "P2_6"          "P2_7"          "P2_8"          "P2_9"         
+[149] "P20"           "P20_COD"       "P20_OTRO"      "P21_1"        
+[153] "P21_2"         "P21_3"         "P21_4"         "P21_5"        
+[157] "P22"           "P23"           "P24_1"         "P24_2"        
+[161] "P24_3"         "P24_4"         "P25"           "P26"          
+[165] "P27"           "P28_1"         "P28_2"         "P29"          
+[169] "P29_COD"       "P29_OTRO"      "P3_1"          "P3_10"        
+[173] "P3_11"         "P3_12"         "P3_2"          "P3_3"         
+[177] "P3_4"          "P3_5"          "P3_6"          "P3_7"         
+[181] "P3_8"          "P3_9"          "P3_COD"        "P3_OTRO"      
+[185] "P30_1"         "P30_2"         "P30_3"         "P30_4"        
+[189] "P30_5"         "P30_6"         "P31_1"         "P31_2"        
+[193] "P31_3"         "P31_4"         "P31_5"         "P31_6"        
+[197] "P31_7"         "P31_8"         "P32_1"         "P32_10"       
+[201] "P32_11"        "P32_12"        "P32_13"        "P32_14"       
+[205] "P32_15"        "P32_16"        "P32_2"         "P32_3"        
+[209] "P32_4"         "P32_5"         "P32_6"         "P32_7"        
+[213] "P32_8"         "P32_9"         "P33_1"         "P33_2"        
+[217] "P33_3"         "P33_4"         "P33_5"         "P33_6"        
+[221] "P34"           "P35"           "P36"           "P37"          
+[225] "P38"           "P39"           "P4"            "P40"          
+[229] "P41"           "P41_COD"       "P41_OTRO"      "P42"          
+[233] "P42_COD"       "P42_OTRO"      "P43_AÑOS"      "P43_MESES"    
+[237] "P43_SEM_TOTAL" "P43_SEMANAS"   "P44"           "P44_COD"      
+[241] "P44_OTRO"      "P45"           "P45_1"         "P46"          
+[245] "P47"           "P47_COD"       "P47_OTRO"      "P48"          
+[249] "P49"           "P5"            "P50_1"         "P50_10"       
+[253] "P50_2"         "P50_3"         "P50_4"         "P50_5"        
+[257] "P50_6"         "P50_7"         "P50_8"         "P50_9"        
+[261] "P51"           "P51_COD"       "P51_OTRO"      "P52"          
+[265] "P52_COD"       "P52_OTRO"      "P53"           "P53_COD"      
+[269] "P53_OTRO"      "P54"           "P55"           "P56"          
+[273] "P56_1"         "P57"           "P57_COD"       "P57_OTRO"     
+[277] "P58_1"         "P58_10"        "P58_11"        "P58_12"       
+[281] "P58_2"         "P58_3"         "P58_4"         "P58_5"        
+[285] "P58_6"         "P58_7"         "P58_8"         "P58_9"        
+[289] "P58_98"        "P58_99"        "P59_1"         "P59_10"       
+[293] "P59_11"        "P59_12"        "P59_13"        "P59_2"        
+[297] "P59_3"         "P59_4"         "P59_5"         "P59_6"        
+[301] "P59_7"         "P59_8"         "P59_9"         "P59_COD"      
+[305] "P59_OTRO"      "P6_1"          "P6_2"          "P6_3"         
+[309] "P6_4"          "P6_5"          "P6_6"          "P6_7"         
+[313] "P60_1"         "P60_2"         "P60_3"         "P60_4"        
+[317] "P60_5"         "P61_1"         "P61_2"         "P61_3"        
+[321] "P61_4"         "P61_5"         "P61_6"         "P61_7"        
+[325] "P61_8"         "P61_9"         "P61_COD"       "P61_OTRO"     
+[329] "P62"           "P63"           "P63_COD"       "P63_COD2"     
+[333] "P63_OTRO"      "P63_OTRO2"     "P64"           "P64_COD"      
+[337] "P64_OTRO"      "P65"           "P65_1"         "P66"          
+[341] "P67_1"         "P67_2"         "P67_3"         "P67_4"        
+[345] "P67_5"         "P67_6"         "P68"           "P68_COD"      
+[349] "P68_OTRO"      "P69"           "P69_COD"       "P69_OTRO"     
+[353] "P7"            "P7_COD"        "P7_OTRO"       "P70"          
+[357] "P71"           "P72"           "P73"           "P74"          
+[361] "P75"           "P76_1"         "P76_2"         "P76_3"        
+[365] "P76_4"         "P76_5"         "P76_6"         "P76_7"        
+[369] "P76_8"         "P77_1"         "P77_2"         "P77_3"        
+[373] "P77_4"         "P77_5"         "P77_6"         "P77_7"        
+[377] "P77_8"         "P78"           "P78_1"         "P79"          
+[381] "P79_COD"       "P79_OTRO"      "P8"            "P8_COD"       
+[385] "P8_OTRO"       "P80"           "P80_COD"       "P80_OTRO"     
+[389] "P81"           "P82"           "P83"           "P83_COD"      
+[393] "P83_OTRO"      "P84_1"         "P84_10"        "P84_11"       
+[397] "P84_12"        "P84_13"        "P84_14"        "P84_2"        
+[401] "P84_3"         "P84_4"         "P84_5"         "P84_6"        
+[405] "P84_7"         "P84_8"         "P84_9"         "P85"          
+[409] "P85_COD"       "P85_OTRO"      "P86_1"         "P86_10"       
+[413] "P86_11"        "P86_12"        "P86_13"        "P86_14"       
+[417] "P86_2"         "P86_3"         "P86_4"         "P86_5"        
+[421] "P86_6"         "P86_7"         "P86_8"         "P86_9"        
+[425] "P87_1"         "P87_2"         "P87_3"         "P87_4"        
+[429] "P87_5"         "P87_6"         "P87_7"         "P87_8"        
+[433] "P87_9"         "P87_COD"       "P87_OTRO"      "P88_1"        
+[437] "P88_2"         "P88_3"         "P88_4"         "P88_COD"      
+[441] "P88_OTRO"      "P89"           "P9"            "P90"          
+[445] "P91"           "P92"           "P93"           "P94"          
+[449] "P95_1"         "P95_2"         "P95_3"         "P95_4"        
+[453] "P95_5"         "P95_6"         "P96"           "P97"          
+[457] "P97_COD"       "P97_OTRO"      "P98"           "P98_COD"      
+[461] "P98_OTRO"      "P99_1"         "P99_2"         "P99_3"        
+[465] "P99_4"         "P99_5"         "P99_6"         "P99_7"        
+[469] "P99_8"         "P99_COD"       "P99_OTRO"      "PONDERADOR"   
+[473] "REGION"        "SEXO"          "TIPO_ENCUESTA" "TRAMO"        
+[477] "ZONA"         </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Seleccionar y visualizar variables.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(base<span class="sc">$</span>P102_2) <span class="co"># Frecuencia de la dificultad para controlar la preocupación</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(base<span class="sc">$</span>P102_5) <span class="co"># Frecuencia de la dificultad para quedarse dormido/a</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>base<span class="sc">$</span>P102_2 <span class="ot">&lt;-</span> <span class="fu">na_if</span>(base<span class="sc">$</span>P102_2, <span class="dv">99</span>) <span class="co"># Tratar los 99 (NS/NR) como NA.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>base<span class="sc">$</span>P102_5 <span class="ot">&lt;-</span> <span class="fu">na_if</span>(base<span class="sc">$</span>P102_5, <span class="dv">99</span>) <span class="co"># Tratar los 99 (NS/NR) como NA.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Filtrar base de datos con las variables seleccionadas.</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span> base <span class="sc">%&gt;%</span> <span class="fu">select</span>(P102_2, </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                      P102_5)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Eliminar casos perdidos (NA).</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(esc_data)) <span class="co"># Cantidad de casos perdidos.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1263</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span><span class="fu">na.omit</span>(esc_data) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8951    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(esc_data)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Renombrar ambas variables.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                            P102_2 
+"P102_2. No has podido dejar de preocuparte o no has podido controlar tu preocupa" 
+                                                                            P102_5 
+ "P102_5. Has tenido problemas para quedarte dormido/a, permanecer dormido/a toda" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span> esc_data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"preocupacion"</span><span class="ot">=</span>P102_2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span> esc_data <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"insomnio"</span><span class="ot">=</span>P102_5)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                      preocupacion 
+"P102_2. No has podido dejar de preocuparte o no has podido controlar tu preocupa" 
+                                                                          insomnio 
+ "P102_5. Has tenido problemas para quedarte dormido/a, permanecer dormido/a toda" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-etiquetar ambas variables </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>esc_data<span class="sc">$</span>preocupacion <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">set_label</span>(esc_data<span class="sc">$</span>preocupacion, <span class="at">label =</span> <span class="st">"Frecuencia : Preocupacion"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(esc_data<span class="sc">$</span>preocupacion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Frecuencia : Preocupacion"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>esc_data<span class="sc">$</span>insomnio <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">set_label</span>(esc_data<span class="sc">$</span>insomnio, <span class="at">label =</span> <span class="st">"Frecuencia : Insomnio"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sjlabelled<span class="sc">::</span><span class="fu">get_label</span>(esc_data<span class="sc">$</span>insomnio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Frecuencia : Insomnio"</code></pre>
+</div>
+</div>
+</section>
+<section id="escala" class="level2">
+<h2 class="anchored" data-anchor-id="escala">Escala</h2>
+<p>Se realizará una escala de las variables seleccionadas. Junto a esta, se llevará a cabo la prueba de consistencia interna de dicha escala, llamada Alfa de Chronbach.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Recodificar las variables a numéricas para la escala y el Alfa Chronbach.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             preocupacion insomnio
+preocupacion      1.00000  0.57071
+insomnio          0.57071  1.00000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span> esc_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">preocupacion_num =</span> <span class="fu">as.numeric</span>(<span class="fu">as_factor</span>(preocupacion)),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">insomnio_num =</span> <span class="fu">as.numeric</span>(<span class="fu">as_factor</span>(insomnio))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>esc_data <span class="ot">&lt;-</span> esc_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">salud_mental =</span> <span class="fu">sum</span>(preocupacion_num, insomnio_num, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 preocupacion  insomnio preocupacion_num insomnio_num
+preocupacion        1.0000000 0.5707100        1.0000000    0.5707100
+insomnio            0.5707100 1.0000000        0.5707100    1.0000000
+preocupacion_num    1.0000000 0.5707100        1.0000000    0.5707100
+insomnio_num        0.5707100 1.0000000        0.5707100    1.0000000
+salud_mental        0.8763998 0.8956238        0.8763998    0.8956238
+                 salud_mental
+preocupacion        0.8763998
+insomnio            0.8956238
+preocupacion_num    0.8763998
+insomnio_num        0.8956238
+salud_mental        1.0000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(esc_data<span class="sc">$</span>salud_mental)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  2.000   2.000   3.000   3.832   5.000   8.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Aplicar prueba de Alfa de Chronbach</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">alpha</span>(esc_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor.smooth(r): Matrix was not positive definite, smoothing was done</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0
+In smc, smcs &lt; 0 were set to .0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = esc_data)
+
+  raw_alpha std.alpha G6(smc) average_r S/N    ase mean  sd median_r
+      0.93      0.95    0.76      0.78  18 0.0008  2.3 1.1     0.88
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt     0.93  0.93  0.94
+Duhachek  0.93  0.93  0.94
+
+ Reliability if an item is dropped:
+                 raw_alpha std.alpha G6(smc) average_r S/N alpha se var.r med.r
+preocupacion          0.92      0.94    0.71      0.80  16  0.00083 0.034  0.89
+insomnio              0.92      0.94    0.71      0.80  16  0.00093 0.033  0.88
+preocupacion_num      0.92      0.94    0.71      0.80  16  0.00083 0.034  0.89
+insomnio_num          0.92      0.94    0.71      0.80  16  0.00093 0.033  0.88
+salud_mental          0.91      0.91    0.68      0.71  10  0.00193 0.049  0.57
+
+ Item statistics 
+                    n raw.r std.r r.cor r.drop mean  sd
+preocupacion     8951  0.88  0.88  0.76   0.82  1.9 1.0
+insomnio         8951  0.90  0.89  0.77   0.84  2.0 1.1
+preocupacion_num 8951  0.88  0.88  0.76   0.82  1.9 1.0
+insomnio_num     8951  0.90  0.89  0.77   0.84  2.0 1.1
+salud_mental     8951  1.00  1.00  0.90   1.00  3.8 1.9
+
+Non missing response frequency for each item
+                    1    2    3    4    5    6    7    8 miss
+preocupacion     0.48 0.28 0.13 0.10 0.00 0.00 0.00 0.00    0
+insomnio         0.45 0.27 0.13 0.15 0.00 0.00 0.00 0.00    0
+preocupacion_num 0.48 0.28 0.13 0.10 0.00 0.00 0.00 0.00    0
+insomnio_num     0.45 0.27 0.13 0.15 0.00 0.00 0.00 0.00    0
+salud_mental     0.00 0.34 0.17 0.18 0.11 0.09 0.05 0.06    0</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretación-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación-de-datos">Interpretación de datos</h2>
+<p>A partir de los datos arrojados por la escala, los cuales arrojaron valores positivos, se puede afirmar que estas correlaciones son positivas. Lo que quiere decir que existe una alta significancia estadística entre ambas variables.</p>
+<p>Por otro lado, el resultado arrojado por la prueba de consistencia interna, Alfa de Chronbach, es posible afirmar que la fiabilidad de la escala presenta bases muy aceptables en términos de asociación. Dado que, los valores arrojados por esta prueba son mayores a 0.8.</p>
+</section>
+<section id="visualización-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="visualización-de-datos">Visualización de datos</h2>
+<p>A continuación, se puede apreciar una tabla de correlación entre nuestras variables recodificadas. Se optó este tipo de tabla, ya que se está trabajando con el metodo de <strong>listwise</strong> para la interpretación de datos con eliminación de casos perdidos (NA).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de correlación.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(esc_data, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>) <span class="co"># Tabla para metodo listwise.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Frecuencia : Preocupacion</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Frecuencia : Insomnio</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">preocupacion_num</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">insomnio_num</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">salud_mental</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Frecuencia : Preocupacion</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Frecuencia : Insomnio</td>
+<td style="text-align: center; padding: 0.2cm;">0.571<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">preocupacion_num</td>
+<td style="text-align: center; padding: 0.2cm;">1.000<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.571<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">insomnio_num</td>
+<td style="text-align: center; padding: 0.2cm;">0.571<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">1.000<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.571<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">salud_mental</td>
+<td style="text-align: center; padding: 0.2cm;">0.876<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.896<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.876<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.896<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td colspan="6" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with listwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="interpretación-de-tabla" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación-de-tabla">Interpretación de tabla</h2>
+<p>A partir de los datos arrojados por la tabla de correlación, se puede afirmar que</p>
+</section>
+</section>
+<section id="referencias" class="level1">
+<h1>Referencias</h1>
+<p>Instituto Nacional de la Juventud (2022). <em>Décima Encuesta Nacional de Juventudes</em>.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

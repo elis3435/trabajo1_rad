@@ -7,15 +7,23 @@ editor: visual
 
 # Introducción
 
-En este trabajo, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022. En ella, utilizamos las variables P102_2 y P102_5, las cuales indican la frecuencia de la dificultad para controlar la preocupación y la frecuencia de la dificultad para quedarse dormido/a...
+En este trabajo, se utilizó la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022, encabezado por el Instituto Nacional de la Juventud. En dicha encuesta, utilizamos las variables P102_2 y P102_5, las cuales indican la frecuencia de la dificultad para controlar la preocupación y la frecuencia de la dificultad para quedarse dormido/a...
 
-# Escala y Alfa de Chronbach
+# Variables
+
+## Descripción de variables
+
+-   P102_2: Frecuenca de la dificultad del encuestado/a para controlar la preocupación, con nivel de medición nominal (posteriormente recodificada a numérica).
+-   P102_5: Frecuencia de la dificultad del encuestado/a para quedarse dormido/a, con un nivel de medición nominal (posteriormente recodificada a númerica).
+
+Ahora se cargarán los paquetes a utilizar:
 
 ```{r}
+#| message: false
+#| warning: false
 # Instalar y cargar paquetes necesarios.
-install.packages("pacman")
-install.packages("psych")
 
+library("haven")
 library("pacman")
 library("psych")
 library("dplyr")
@@ -41,19 +49,22 @@ rm(list = ls())
 list.files("Input")
 ```
 
+A continuación, procesaremos las variables seleccionadas:
+
 ```{r}
 ## Cargar base de datos ENJUV 2022 (base de jovenes).
-base <- read.dta("Encuesta_ Jovenes.dta")
+base <- read_dta("Encuesta Jovenes.dta")
 dim(base)
 ls(base) 
 
-## Visualizar variables.
+## Seleccionar y visualizar variables.
 view(base$P102_2) # Frecuencia de la dificultad para controlar la preocupación
 view(base$P102_5) # Frecuencia de la dificultad para quedarse dormido/a
 
 base$P102_2 <- na_if(base$P102_2, 99) # Tratar los 99 (NS/NR) como NA.
 base$P102_5 <- na_if(base$P102_5, 99) # Tratar los 99 (NS/NR) como NA.
 
+## Filtrar base de datos con las variables seleccionadas.
 esc_data <- base %>% select(P102_2, 
                       P102_5)
 
@@ -81,10 +92,12 @@ esc_data$insomnio <- sjlabelled::set_label(esc_data$insomnio, label = "Frecuenci
 sjlabelled::get_label(esc_data$insomnio)
 ```
 
-## Escala y correlación
+## Escala
+
+Se realizará una escala de las variables seleccionadas. Junto a esta, se llevará a cabo la prueba de consistencia interna de dicha escala, llamada Alfa de Chronbach.
 
 ```{r}
-## Convertir las variables a numéricas para la escala y el Alfa Chronbach.
+## Recodificar las variables a numéricas para la escala y el Alfa Chronbach.
 cor(esc_data)
 
 esc_data <- esc_data %>%
@@ -102,23 +115,28 @@ cor(esc_data)
 
 summary(esc_data$salud_mental)
 
-# Aplicar prueba de Alfa de Chronbach
+## Aplicar prueba de Alfa de Chronbach
 psych::alpha(esc_data)
-
 ```
 
-## Interpretación de datos.
+## Interpretación de escala y Alfa de Chronbach
 
-...
+A partir de los datos arrojados por la escala, los cuales arrojaron valores positivos, se puede afirmar que estas correlaciones son positivas. Lo que quiere decir que existe una alta significancia estadística entre los atributos de ambas variables.
 
-Según el resultado arrojado por la prueba de consistencia interna, es decir, alfa de Chronbach, es posible afirmar que la fiabilidad de la escala presenta bases muy aceptables en términos de asociación. Dado que, los valores arrojados por esta prueba son mayores a 0.8.
+Por otro lado, el resultado arrojado por la prueba de consistencia interna, Alfa de Chronbach, es posible afirmar que la fiabilidad de la escala presenta bases muy aceptables en términos de asociación. Dado que, los valores arrojados por esta prueba son mayores a 0.8, esto es porque los valores más cercanos a 1 equivalen a mayor intensidad de la fiabilidad de una escala.
 
 ## Visualización de datos
 
+A continuación, se puede apreciar una tabla de correlación entre nuestras variables recodificadas. Se optó este tipo de tabla, ya que se está trabajando con el metodo de **listwise** para la interpretación de datos con eliminación de casos perdidos (NA).
+
 ```{r}
-# Tabla
+# Tabla de correlación.
 sjPlot::tab_corr(esc_data, 
                  triangle = "lower") # Tabla para metodo listwise.
 ```
 
 ## Interpretación de tabla
+
+# Referencias
+
+Instituto Nacional de la Juventud (2022). *Décima Encuesta Nacional de Juventudes*.
