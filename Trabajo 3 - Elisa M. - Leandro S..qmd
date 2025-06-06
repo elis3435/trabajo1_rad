@@ -1,0 +1,76 @@
+---
+title: "Tarea 3"
+author: "Elisa Matte y Leandro Suárez"
+format: html
+editor: visual
+---
+
+## título
+
+```{r}
+pacman::p_load(dplyr, car, sjmisc, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
+pacman::p_load(tidyverse,   # manipulacion datos.
+               sjPlot,      # tablas.
+               stargazer,   # tablas.
+               confintr,    # IC.
+               gginference, # visualizacion .
+               rempsyc,     # reporte.
+               broom,       # varios.
+               sjmisc,      # para descriptivos .
+               sjlabelled,  # etiquetas.
+               knitr)
+
+options(scipen = 999) # para desactivar notacion cientifica.
+
+view(base$P102_2)
+view(base$P6_1)
+view(base$SEXO)
+view(base$P77_1)
+
+base_reg <- base %>% select(SEXO, 
+                             P77_1,
+                            P102_2,
+                            P6_1)
+
+base_reg$SEXO <- car::recode(base_reg$SEXO, "'1. Hombre'='1'; '2. Mujer'='2'")
+base_reg$P77_1 <- car::recode(base_reg$P77_1, "'Una vez al mes o menos'='1'; 'Varias veces al mes'='2';'Varias veces a la semana'='3';'Varias veces al día'='4'")
+
+base_reg <- base_reg %>% rename("consumo"=P77_1)
+base_reg <- base_reg %>% rename("sexo"=SEXO)
+base_reg <- base_reg %>% rename("preocupacion"=P102_2)
+base_reg <- base_reg %>% rename("satisfaccion"=P6_1)
+
+base_reg$consumo <- as_factor(base_reg$consumo)
+base_reg$sexo <- as_factor(base_reg$sexo)
+base_reg$preocupacion <- as_label(base_reg$preocupacion) #PROBLEMA: no funciona as_factor y con as_label como que se anulan las categorías 
+base_reg$satisfaccion <- as_label(base_reg$satisfaccion)
+
+base_reg$consumo <- na_if(base_reg$consumo, 99) #Arreglando eso habría que correr el código para que no se consideren los casos perdidos
+```
+
+```{r}
+reg1 <- lm(preocupacion ~ consumo, data=base_reg)
+reg2 <- lm(preocupacion ~ sexo, data=base_reg)
+reg3 <- lm(preocupacion ~ satisfaccion, data=base_reg)
+
+knitreg(list(reg1, reg2, reg3), 
+        custom.model.names = c("Modelo 1",
+                               "Modelo 2",
+                               "Modelo 3"),
+        custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
+        custom.coef.names = c("Intercepto", 
+                              "consumo",
+                              "satisfaccion", 
+                              "sexo"),
+        caption = "preocupacion",
+        caption.above = TRUE)
+```
+
+```{r}
+graph1 <- ggplot(base_reg, aes(x = satisfaccion, y = preocupacion)) +
+  geom_point(size = 1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Satisfaccion", y = "Preocupacion")
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
