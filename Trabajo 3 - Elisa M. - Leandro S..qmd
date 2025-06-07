@@ -27,25 +27,43 @@ view(base$P6_1)
 view(base$SEXO)
 view(base$P77_1)
 
+## Filtrar base de datos.
 base_reg <- base %>% select(SEXO, 
-                             P77_1,
+                            P77_1,
                             P102_2,
                             P6_1)
+view(base_reg)
 
-base_reg$SEXO <- car::recode(base_reg$SEXO, "'1. Hombre'='1'; '2. Mujer'='2'")
-base_reg$P77_1 <- car::recode(base_reg$P77_1, "'Una vez al mes o menos'='1'; 'Varias veces al mes'='2';'Varias veces a la semana'='3';'Varias veces al día'='4'")
-
+# Cambiar el nombre de las variables.
 base_reg <- base_reg %>% rename("consumo"=P77_1)
 base_reg <- base_reg %>% rename("sexo"=SEXO)
 base_reg <- base_reg %>% rename("preocupacion"=P102_2)
 base_reg <- base_reg %>% rename("satisfaccion"=P6_1)
 
-base_reg$consumo <- as_factor(base_reg$consumo)
-base_reg$sexo <- as_factor(base_reg$sexo)
-base_reg$preocupacion <- as_label(base_reg$preocupacion) #PROBLEMA: no funciona as_factor y con as_label como que se anulan las categorías 
-base_reg$satisfaccion <- as_label(base_reg$satisfaccion)
+# Tratar 99 como casos perdidos (NA).
+base_reg$consumo <- na_if(base_reg$consumo, 99)
+base_reg$satisfaccion <- na_if(base_reg$satisfaccion, 99)
+base_reg$satisfaccion <- na_if(base_reg$satisfaccion, 98)
+base_reg$preocupacion <- na_if(base_reg$preocupacion, 99) 
 
-base_reg$consumo <- na_if(base_reg$consumo, 99) #Arreglando eso habría que correr el código para que no se consideren los casos perdidos
+view(base_reg)
+
+# Tratar las variables como factor.
+base_reg$consumo <- as.factor(base_reg$consumo)
+base_reg$sexo <- as.factor(base_reg$sexo)
+base_reg$preocupacion <- as.factor(base_reg$preocupacion)
+base_reg$satisfaccion <- as.factor(base_reg$satisfaccion)
+
+# Cambiar etiquetas de categorías de respuesta.
+base_reg$sexo <- ifelse(base_reg$sexo == 1, "Hombre", ifelse(base_reg$sexo == 2, "Mujer", "Desconocido"))
+
+base_reg$consumo <- car::recode(base_reg$consumo,
+  "1 = 'Una vez al mes o menos';
+   2 = 'Varias veces al mes';
+   3 = 'Varias veces a la semana';
+   4 = 'Varias veces al día'")
+
+view(base_reg)
 ```
 
 ```{r}
