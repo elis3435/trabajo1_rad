@@ -18,7 +18,6 @@ editor: visual
 -   P6_1: es el nivel de satisfacción con la vida en general.
 
 ```{r}
-#| message: true
 #| warning: false
 # Cargar paquetes necesarios.
 pacman::p_load(dplyr, haven, car, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
