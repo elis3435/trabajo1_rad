@@ -103,15 +103,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="regresión-lineal" class="level1">
-<h1>Regresión lineal</h1>
+<section id="selección-de-varibles" class="level1">
+<h1>Selección de varibles</h1>
+<p>Para la elección de variables en este caso, se seleccionó como dependiente la capacidad para controlar la preocupación hacia las difrentes situaciones de la vida y como independientes el sexo, la frecuencia de consumo y la satisfacción hacia la vida en general. El criterio de elección de estas variables se relaciona con la propuesta inicial del proyecto, el cual busca relacionar por medio de diferentes análisis, las coincidencias que se pueden presentar en torno a la frecuencia del consumo de alcohol y el estado de la salud mental de las personas. Este estado se intenta comprender a través de variables que responden como atributos a la construcción de esta compleja percepción, suscribiéndolos tanto a principios teóricos como a las dimensiones organizativas definidas por la propia encuesta seleccionada, la cual cuenta con una sección específica denominada: salud mental.</p>
 <section id="descripción-de-variables" class="level2">
 <h2 class="anchored" data-anchor-id="descripción-de-variables">Descripción de variables</h2>
 <ul>
 <li><p>P102_2 : corresponde a la frecuencia en controlar la preocupación.</p></li>
 <li><p>P77_1: corresponde a la frecuencia en el consumo de alcohol.</p></li>
 <li><p>SEXO: es el sexo de la persona encuestada.</p></li>
-<li><p>P6_1: es el nivel de satisfacción con la vida en general.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar paquetes necesarios.</span></span>
@@ -175,23 +175,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(base_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tabla-de-regresiones" class="level2">
-<h2 class="anchored" data-anchor-id="tabla-de-regresiones">Tabla de regresiones</h2>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizar regresiones.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> consumo, <span class="at">data =</span> base_reg)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> sexo, <span class="at">data =</span> base_reg)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> satisfaccion, <span class="at">data =</span> base_reg)</span>
+<section id="creación-de-modelos-de-regresión" class="level2">
+<h2 class="anchored" data-anchor-id="creación-de-modelos-de-regresión">Creación de modelos de regresión</h2>
+<p>Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con las independientes, ¿se explican entre sí?</p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear modelos de regresión</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> consumo, <span class="at">data=</span>base_reg)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> sexo, <span class="at">data=</span>base_reg)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> satisfaccion, <span class="at">data=</span>base_reg)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla de regresiones.</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">knitreg</span>(<span class="fu">list</span>(reg1, reg2, reg3), </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>, <span class="st">"Modelo 3"</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.note =</span> <span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>, </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Consumo"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Mujer &lt;br&gt; &lt;i&gt;(Ref. Hombre)&lt;/i&gt;"</span>, </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Satisfacción"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"Preocupación"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption.above =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizar regresiones.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> consumo, <span class="at">data =</span> base_reg)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> sexo, <span class="at">data =</span> base_reg)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> satisfaccion, <span class="at">data =</span> base_reg)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla de regresiones.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">knitreg</span>(<span class="fu">list</span>(reg1, reg2, reg3), </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Modelo 1"</span>, <span class="st">"Modelo 2"</span>, <span class="st">"Modelo 3"</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.note =</span> <span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"Intercepto"</span>, </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Consumo"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Mujer &lt;br&gt; &lt;i&gt;(Ref. Hombre)&lt;/i&gt;"</span>, </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Satisfacción"</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"Preocupación"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption.above =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Preocupación
