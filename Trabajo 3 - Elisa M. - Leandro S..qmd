@@ -1,14 +1,28 @@
 ---
-title: "Tarea 3"
+title: "Trabajo 3"
 author: "Elisa Matte y Leandro Suárez"
 format: html
 editor: visual
 ---
 
-## título
+# Regresión lineal
+
+## Descripción de variables
+
+-   P102_2 : corresponde a la frecuencia en controlar la preocupación.
+
+-   P77_1: corresponde a la frecuencia en el consumo de alcohol.
+
+-   SEXO: es el sexo de la persona encuestada.
+
+-   P6_1: es el nivel de satisfacción con la vida en general.
 
 ```{r}
-pacman::p_load(dplyr, car, sjmisc, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
+#| message: true
+#| warning: false
+# Cargar paquetes necesarios.
+pacman::p_load(dplyr, haven, car, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
+
 pacman::p_load(tidyverse,   # manipulacion datos.
                sjPlot,      # tablas.
                stargazer,   # tablas.
@@ -20,14 +34,19 @@ pacman::p_load(tidyverse,   # manipulacion datos.
                sjlabelled,  # etiquetas.
                knitr)
 
+# Eliminar notación científica.
 options(scipen = 999) # para desactivar notacion cientifica.
 
+# Cargar base de datos (ENJUV 2022)
+base <- read_dta("Encuesta Jovenes.dta")
+
+# Visualizar variables de interés.
 view(base$P102_2)
 view(base$P6_1)
 view(base$SEXO)
 view(base$P77_1)
 
-## Filtrar base de datos.
+# Filtrar base de datos.
 base_reg <- base %>% select(SEXO, 
                             P77_1,
                             P102_2,
@@ -46,49 +65,54 @@ base_reg$satisfaccion <- na_if(base_reg$satisfaccion, 99)
 base_reg$satisfaccion <- na_if(base_reg$satisfaccion, 98)
 base_reg$preocupacion <- na_if(base_reg$preocupacion, 99) 
 
+# Eliminar NA.
+base_reg <- na.omit(base_reg)
 view(base_reg)
 
 # Tratar las variables como factor.
-base_reg$consumo <- as.factor(base_reg$consumo)
+base_reg$consumo <- as.numeric(base_reg$consumo)
 base_reg$sexo <- as.factor(base_reg$sexo)
-base_reg$preocupacion <- as.factor(base_reg$preocupacion)
-base_reg$satisfaccion <- as.factor(base_reg$satisfaccion)
+base_reg$preocupacion <- as.numeric(base_reg$preocupacion)
+base_reg$satisfaccion <- as.numeric(base_reg$satisfaccion)
 
 # Cambiar etiquetas de categorías de respuesta.
 base_reg$sexo <- ifelse(base_reg$sexo == 1, "Hombre", ifelse(base_reg$sexo == 2, "Mujer", "Desconocido"))
 
-base_reg$consumo <- car::recode(base_reg$consumo,
-  "1 = 'Una vez al mes o menos';
-   2 = 'Varias veces al mes';
-   3 = 'Varias veces a la semana';
-   4 = 'Varias veces al día'")
-
 view(base_reg)
 ```
 
-```{r}
-reg1 <- lm(preocupacion ~ consumo, data=base_reg)
-reg2 <- lm(preocupacion ~ sexo, data=base_reg)
-reg3 <- lm(preocupacion ~ satisfaccion, data=base_reg)
+## Tabla de regresiones
 
+```{r, results='asis'}
+# Realizar regresiones.
+reg1 <- lm(preocupacion ~ consumo, data = base_reg)
+reg2 <- lm(preocupacion ~ sexo, data = base_reg)
+reg3 <- lm(preocupacion ~ satisfaccion, data = base_reg)
+
+# Crear tabla de regresiones.
 knitreg(list(reg1, reg2, reg3), 
-        custom.model.names = c("Modelo 1",
-                               "Modelo 2",
-                               "Modelo 3"),
+        custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3"),
         custom.note = "*** p < 0.001; ** p < 0.01; * p < 0.05",
         custom.coef.names = c("Intercepto", 
-                              "consumo",
-                              "satisfaccion", 
-                              "sexo"),
-        caption = "preocupacion",
+                              "Consumo",
+                              "Mujer <br> <i>(Ref. Hombre)</i>", 
+                              "Satisfacción"),
+        caption = "Preocupación",
         caption.above = TRUE)
 ```
 
+### Interpretación de tabla
+
+## Gráfico
+
 ```{r}
-graph1 <- ggplot(base_reg, aes(x = satisfaccion, y = preocupacion)) +
+# Crear gráfico con valores predichos entre satisfacción con preocupación
+graph1 <- ggplot(reg3, aes(x = satisfaccion, y = preocupacion)) +
   geom_point(size = 1) +
   geom_smooth(method = "lm", se = FALSE) +
   labs(x = "Satisfaccion", y = "Preocupacion")
+
+print(graph1)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+### Interpretación de gráfico
