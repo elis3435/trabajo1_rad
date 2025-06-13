@@ -109,6 +109,8 @@ knitreg(list(reg1, reg2, reg3),
 
 ### Interpretación de tabla
 
+A partir de los modelos de regresión lineal arrojados, podemos observar que el consumo de alcohol no presenta una relación estadísticamente significativa con la capacidad de controlar el sentimiento de preocupación, lo que sugiere que esta conducta no se asocia directamente con dicho manejo emocional entre jóvenes. En contraste, el segundo modelo evidencia que el sexo del encuestado/a sí tiene un efecto significativo: las mujeres reportan una mayor capacidad de control de la preocupación en comparación con los hombres (coef. = 0.34, p \< 0.001). Este hallazgo podría vincularse con diferencias de género en la expresión o gestión emocional mencionados en el análisis realizado en el trabajo 1, aunque podría requerir mayor indagación. Finalmente, el tercer modelo incorpora la variable de satisfacción con la vida, la cual muestra una relación negativa y significativa (coef. = -0.30, p \< 0.001). Este resultado es contraintuitivo, ya que se esperaría que una mayor satisfacción se asociara a un mayor control emocional. Incluso esto nos hizo revisar si acaso realizamos una codificación inversa, donde 1 fuera muy satisfecho/a y 5 muy insatisfecho/a, pero no es así.
+
 ## Gráfico
 
 ```{r}
@@ -122,3 +124,5 @@ print(graph1)
 ```
 
 ### Interpretación de gráfico
+
+En el gráfico se puede observar una pendiente negativa, lo que indica que a medida que aumenta la satisfacción con la vida, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional. Esto nos llamó la atención, ya que se contradice con la interpretación del modelo de regresión múltiple, pero creemos que se puede deber justamente al efecto que tienen las otras variables incluidas en el ejercicio anterior.
