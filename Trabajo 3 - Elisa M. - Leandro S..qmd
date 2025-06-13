@@ -82,18 +82,13 @@ view(base_reg)
 
 ## Creación de modelos de regresión
 
-Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con las independientes, ¿se explican entre sí?
+A continuación, se crearán unos modelos de regresión lineal simple para visualizarlos mediante una tabla de regresiones. Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo de alcohol y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con los predictores.
 
 ```{r, results='asis'}
 # Crear modelos de regresión
 reg1 <- lm(preocupacion ~ consumo, data=base_reg)
 reg2 <- lm(preocupacion ~ sexo, data=base_reg)
 reg3 <- lm(preocupacion ~ satisfaccion, data=base_reg)
-
-# Realizar regresiones.
-reg1 <- lm(preocupacion ~ consumo, data = base_reg)
-reg2 <- lm(preocupacion ~ sexo, data = base_reg)
-reg3 <- lm(preocupacion ~ satisfaccion, data = base_reg)
 
 # Crear tabla de regresiones.
 knitreg(list(reg1, reg2, reg3), 
@@ -108,6 +103,10 @@ knitreg(list(reg1, reg2, reg3),
 ```
 
 ### Interpretación de tabla
+
+A partir de los resultados arrojados por la tabla de regresiones, se puede apreciar que en el modelo 1, que el coeficiente de frecuencia de consumo de alcohol es 0.01, lo que quiere decir que por cada unidad de frecuencia en el consumo de alcohol, la preocupación aumenta 0.01 unidades. No obstante, esta coeficiente no es estadísticamente significativo.
+
+En el modelo 2, se utilizó el coeficiente de sexo, tomando como referencia el grupo de los hombres. El coeficiente que arroja ese modelo es de 0.34, lo que traduce que el hecho de ser mujer aumenta 0.34 unidades en preocupación. Este efecto lo podemos extrapolar a la población con un 99.9% de confianza.
 
 ## Gráfico
 
