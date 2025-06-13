@@ -7,7 +7,7 @@ editor: visual
 
 # Selección de varibles
 
-Para la elección de variables en este caso, se seleccionó como dependiente la capacidad para controlar la preocupación hacia las difrentes situaciones de la vida y como independientes el sexo, la frecuencia de consumo y la satisfacción hacia la vida en general. El criterio de elección de estas variables se relaciona con la propuesta inicial del proyecto, el cual busca relacionar por medio de diferentes análisis, las coincidencias que se pueden presentar en torno a la frecuencia del consumo de alcohol y el estado de la salud mental de las personas. Este estado se intenta comprender a través de variables que responden como atributos a la construcción de esta compleja percepción, suscribiéndolos tanto a principios teóricos como a las dimensiones organizativas definidas por la propia encuesta seleccionada, la cual cuenta con una sección específica denominada: salud mental.
+Para la elección de variables en este caso, se seleccionó como dependiente la capacidad para controlar la preocupación hacia las diferentes situaciones de la vida y como independientes el sexo, la frecuencia de consumo y la satisfacción hacia la vida en general. El criterio de elección de estas variables se relaciona con la propuesta inicial del proyecto, el cual busca relacionar por medio de diferentes análisis, las coincidencias que se pueden presentar en torno a la frecuencia del consumo de alcohol y el estado de la salud mental de las personas. Este estado se intenta comprender a través de variables que responden como atributos a la construcción de esta compleja percepción, suscribiéndolos tanto a principios teóricos como a las dimensiones organizativas definidas por la propia encuesta seleccionada, la cual cuenta con una sección específica denominada: salud mental.
 
 ## Descripción de variables
 
@@ -82,18 +82,13 @@ view(base_reg)
 
 ## Creación de modelos de regresión
 
-Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con las independientes, ¿se explican entre sí?
+A continuación, se crearán unos modelos de regresión lineal simple para visualizarlos mediante una tabla de regresiones. Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo de alcohol y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con los predictores.
 
 ```{r, results='asis'}
 # Crear modelos de regresión
 reg1 <- lm(preocupacion ~ consumo, data=base_reg)
 reg2 <- lm(preocupacion ~ sexo, data=base_reg)
 reg3 <- lm(preocupacion ~ satisfaccion, data=base_reg)
-
-# Realizar regresiones.
-reg1 <- lm(preocupacion ~ consumo, data = base_reg)
-reg2 <- lm(preocupacion ~ sexo, data = base_reg)
-reg3 <- lm(preocupacion ~ satisfaccion, data = base_reg)
 
 # Crear tabla de regresiones.
 knitreg(list(reg1, reg2, reg3), 
