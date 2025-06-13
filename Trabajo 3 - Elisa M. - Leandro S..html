@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="selección-de-varibles" class="level1">
 <h1>Selección de varibles</h1>
-<p>Para la elección de variables en este caso, se seleccionó como dependiente la capacidad para controlar la preocupación hacia las difrentes situaciones de la vida y como independientes el sexo, la frecuencia de consumo y la satisfacción hacia la vida en general. El criterio de elección de estas variables se relaciona con la propuesta inicial del proyecto, el cual busca relacionar por medio de diferentes análisis, las coincidencias que se pueden presentar en torno a la frecuencia del consumo de alcohol y el estado de la salud mental de las personas. Este estado se intenta comprender a través de variables que responden como atributos a la construcción de esta compleja percepción, suscribiéndolos tanto a principios teóricos como a las dimensiones organizativas definidas por la propia encuesta seleccionada, la cual cuenta con una sección específica denominada: salud mental.</p>
+<p>Para la elección de variables en este caso, se seleccionó como dependiente la capacidad para controlar la preocupación hacia las diferentes situaciones de la vida y como independientes el sexo, la frecuencia de consumo y la satisfacción hacia la vida en general. El criterio de elección de estas variables se relaciona con la propuesta inicial del proyecto, el cual busca relacionar por medio de diferentes análisis, las coincidencias que se pueden presentar en torno a la frecuencia del consumo de alcohol y el estado de la salud mental de las personas. Este estado se intenta comprender a través de variables que responden como atributos a la construcción de esta compleja percepción, suscribiéndolos tanto a principios teóricos como a las dimensiones organizativas definidas por la propia encuesta seleccionada, la cual cuenta con una sección específica denominada: salud mental.</p>
 <section id="descripción-de-variables" class="level2">
 <h2 class="anchored" data-anchor-id="descripción-de-variables">Descripción de variables</h2>
 <ul>
@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="creación-de-modelos-de-regresión" class="level2">
 <h2 class="anchored" data-anchor-id="creación-de-modelos-de-regresión">Creación de modelos de regresión</h2>
-<p>A continuación, se crearán unos modelos de regresión lineal simple para visualizarlos mediante una tabla de regresiones. Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo de alcohol y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con los predictores, ¿se explican entre sí?</p>
+<p>A continuación, se crearán unos modelos de regresión lineal simple para visualizarlos mediante una tabla de regresiones. Con la creación de estos modelos se busca conocer la relación que existe entre la variable sobre la capacidad de control de la preocupación de las personas según su sexo, su frecuencia de consumo de alcohol y su sensación de satisfacción con la vida en general. De esta manera, se busca entender en qué medida la variable dependiente establece relación con los predictores.</p>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear modelos de regresión</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> consumo, <span class="at">data=</span>base_reg)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(preocupacion <span class="sc">~</span> sexo, <span class="at">data=</span>base_reg)</span>
@@ -379,12 +379,13 @@ Num. obs.
 </table>
 <section id="interpretación-de-tabla" class="level3">
 <h3 class="anchored" data-anchor-id="interpretación-de-tabla">Interpretación de tabla</h3>
-A partir de los modelos de regresión lineal arrojados, podemos observar que el consumo de alcohol no presenta una relación estadísticamente significativa con la capacidad de controlar el sentimiento de preocupación, lo que sugiere que esta conducta no se asocia directamente con dicho manejo emocional entre jóvenes. En contraste, el segundo modelo evidencia que el sexo del encuestado/a sí tiene un efecto significativo: las mujeres reportan una mayor capacidad de control de la preocupación en comparación con los hombres (coef. = 0.34, p &lt; 0.001). Este hallazgo podría vincularse con diferencias de género en la expresión o gestión emocional mencionados en el análisis realizado en el trabajo 1, aunque podría requerir mayor indagación. Finalmente, el tercer modelo incorpora la variable de satisfacción con la vida, la cual muestra una relación negativa y significativa (coef. = -0.30, p &lt; 0.001). Este resultado es contraintuitivo, ya que se esperaría que una mayor satisfacción se asociara a un mayor control emocional. Incluso esto nos hizo revisar si acaso realizamos una codificación inversa, donde 1 fuera muy satisfecho/a y 5 muy insatisfecho/a, pero no es así.</p>
+<p>A partir de los modelos de regresión lineal arrojados, podemos observar que, en el primer modelo, la frecuencia de consumo de alcohol no presenta una relación estadísticamente significativa con la capacidad de controlar el sentimiento de preocupación, lo que sugiere que esta conducta no se asocia directamente con dicho manejo emocional entre las personas encuestadas.</p>
+<p>En contraste, el segundo modelo evidencia que el sexo del encuestado/a sí tiene un efecto significativo: las mujeres reportan una mayor capacidad de control de la preocupación en comparación con los hombres (coef. = 0.34, p &lt; 0.001). A la vez, este efecto se puede llevar a la población con un 99.9% de confianza. Este hallazgo podría vincularse con diferencias de género en la expresión o gestión emocional mencionados en el análisis realizado en el trabajo 1, aunque podría requerir mayor indagación. Además, observando el valor de R^2, se puede afirmar que este modelo explica el 3% de la varianza de la variable preocupación.</p>
+<p>Finalmente, el tercer modelo incorpora la variable de satisfacción con la vida en general, la cual muestra una relación negativa y estadísticamente significativa (coef. = -0.30, p &lt; 0.001). Los efectos de esta regresión se pueden extrapolar a la población con un 99.9% de confianza. Este resultado apunta a que por cada unidad de satisfacción, la preocupación disminuirá 0.30 unidades. Por otro lado, viendo el coeficiente de R^2, es posible afirmar que este modelo explica 6% de la varianza de la variable de preocupación</p>
 </section>
 </section>
 <section id="gráfico" class="level2">
 <h2 class="anchored" data-anchor-id="gráfico">Gráfico</h2>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear gráfico con valores predichos entre satisfacción con preocupación</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>graph1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(reg3, <span class="fu">aes</span>(<span class="at">x =</span> satisfaccion, <span class="at">y =</span> preocupacion)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -392,20 +393,11 @@ A partir de los modelos de regresión lineal arrojados, podemos observar que el 
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Satisfaccion"</span>, <span class="at">y =</span> <span class="st">"Preocupacion"</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(graph1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Trabajo-3---Elisa-M.---Leandro-S._files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img src="Trabajo-3---Elisa-M.---Leandro-S._files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 <section id="interpretación-de-gráfico" class="level3">
 <h3 class="anchored" data-anchor-id="interpretación-de-gráfico">Interpretación de gráfico</h3>
-<p>En el gráfico se puede observar una pendiente negativa, lo que indica que a medida que aumenta la satisfacción con la vida, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional. Esto nos llamó la atención, ya que se contradice con la interpretación del modelo de regresión múltiple, pero creemos que se puede deber justamente al efecto que tienen las otras variables incluidas en el ejercicio anterior.</p>
+<p>En el gráfico se puede observar una pendiente la cual va en sentido decreciente, lo que indica una correlación negativa, es decir, que a medida que aumenta la satisfacción con la vida en general, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional.</p>
 </section>
 </section>
 </section>

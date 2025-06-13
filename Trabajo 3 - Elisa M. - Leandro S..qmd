@@ -104,11 +104,15 @@ knitreg(list(reg1, reg2, reg3),
 
 ### Interpretación de tabla
 
-A partir de los modelos de regresión lineal arrojados, podemos observar que el consumo de alcohol no presenta una relación estadísticamente significativa con la capacidad de controlar el sentimiento de preocupación, lo que sugiere que esta conducta no se asocia directamente con dicho manejo emocional entre jóvenes. En contraste, el segundo modelo evidencia que el sexo del encuestado/a sí tiene un efecto significativo: las mujeres reportan una mayor capacidad de control de la preocupación en comparación con los hombres (coef. = 0.34, p \< 0.001). Este hallazgo podría vincularse con diferencias de género en la expresión o gestión emocional mencionados en el análisis realizado en el trabajo 1, aunque podría requerir mayor indagación. Finalmente, el tercer modelo incorpora la variable de satisfacción con la vida, la cual muestra una relación negativa y significativa (coef. = -0.30, p \< 0.001). Este resultado es contraintuitivo, ya que se esperaría que una mayor satisfacción se asociara a un mayor control emocional. Incluso esto nos hizo revisar si acaso realizamos una codificación inversa, donde 1 fuera muy satisfecho/a y 5 muy insatisfecho/a, pero no es así.
+A partir de los modelos de regresión lineal arrojados, podemos observar que, en el primer modelo, la frecuencia de consumo de alcohol no presenta una relación estadísticamente significativa con la capacidad de controlar el sentimiento de preocupación, lo que sugiere que esta conducta no se asocia directamente con dicho manejo emocional entre las personas encuestadas.
+
+En contraste, el segundo modelo evidencia que el sexo del encuestado/a sí tiene un efecto significativo: las mujeres reportan una mayor capacidad de control de la preocupación en comparación con los hombres (coef. = 0.34, p \< 0.001). A la vez, este efecto se puede llevar a la población con un 99.9% de confianza. Este hallazgo podría vincularse con diferencias de género en la expresión o gestión emocional mencionados en el análisis realizado en el trabajo 1, aunque podría requerir mayor indagación. Además, observando el valor de R\^2, se puede afirmar que este modelo explica el 3% de la varianza de la variable preocupación.
+
+Finalmente, el tercer modelo incorpora la variable de satisfacción con la vida en general, la cual muestra una relación negativa y estadísticamente significativa (coef. = -0.30, p \< 0.001). Los efectos de esta regresión se pueden extrapolar a la población con un 99.9% de confianza. Este resultado apunta a que por cada unidad de satisfacción, la preocupación disminuirá 0.30 unidades. Por otro lado, viendo el coeficiente de R\^2, es posible afirmar que este modelo explica 6% de la varianza de la variable de preocupación
 
 ## Gráfico
 
-```{r}
+```{r, results='asis'}
 # Crear gráfico con valores predichos entre satisfacción con preocupación
 graph1 <- ggplot(reg3, aes(x = satisfaccion, y = preocupacion)) +
   geom_point(size = 1) +
@@ -120,4 +124,4 @@ print(graph1)
 
 ### Interpretación de gráfico
 
-En el gráfico se puede observar una pendiente negativa, lo que indica que a medida que aumenta la satisfacción con la vida, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional. Esto nos llamó la atención, ya que se contradice con la interpretación del modelo de regresión múltiple, pero creemos que se puede deber justamente al efecto que tienen las otras variables incluidas en el ejercicio anterior.
+En el gráfico se puede observar una pendiente la cual va en sentido decreciente, lo que indica una correlación negativa, es decir, que a medida que aumenta la satisfacción con la vida en general, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional.
