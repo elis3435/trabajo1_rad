@@ -1,62 +1,59 @@
 ---
-title: "Consumo de alcohol y sexo"
-author: "Elisa M y Leandro S"
+title: "Consumo de alcohol y genero"
+author: "Elisa Matte y Leandro Suárez"
 format:
   revealjs: 
     theme: beige
- slideNumber: true # Número de slide abajo a la derecha
+fontsize: 30px
+slideNumber: true 
 editor: visual
 title-slide-attributes:
     data-background-image: input/banner-saludmental.png
     data-background-size: contain
-    data-background-opacity: "0.1"
-bibliography: cohesion.bib
-link-citations: TRUE 
+    bibliography: references.bib
 ---
-#Introduccion 
-En este trabajo se llevará a cabo una investigacion sobre la influencia que tiene el sexo de una persona con la frecuencia en la que consume alcohol, utilizando la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022. 
 
-#Presentación de Variables 
-Para esto se seleccionaron las variables P77 que representa la frecuencia del consumo de alcohol en jóvenes y el SEXO de la persona encuestada. 
-Creemos que esta relación es relevante, ya que en las políticas públicas para la moderación del consumo de alcohol u otras sustancias suelen estar destinadas para un público general y no reparan en focalizaciones necesarias que existen en base al género. 
+# Introducción
 
-Creemos que este análisis puede ser un  aporte para formar un posible perfil, en base al sexo, de consumidores de bebidas alcoholicas, intentando prevenir de manera más efectiva las consecuencias negativas que pueden tener el exceso de consumo, ya sea a nivel de salud, "accidentes de trafico, reyertas callejeras, agresiones sexuales, problemas de adiccion" [@marcelelipemiravet2021].
+Las políticas públicas para la moderación del consumo de alcohol u otras sustancias suelen estar destinadas para un público general y no reparan en focalizaciones necesarias que existen en base al género. Creemos que este análisis puede ser un aporte para formar un posible perfil, en base al sexo de consumidores de bebidas alcoholicas.
 
-#Tabla de contingencia
+Para ello, se llevó a cabo una investigación sobre la influencia que tiene el sexo de una persona con la frecuencia en la que consume alcohol, utilizando la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022. Específicamente, la base de datos para jóvenes.
 
+## Presentación de Variables
+
+::: incremental
+-  Sexo: nivel de medición nominal (hombre, mujer).
+
+-  Frecuencia de consumo de alcohol: nivel de medición ordinal (Diariamente, mensualmente, semanalmente).
+:::
+
+## Tabla de contingencia
 
 :::: {.columns}
-
 ::: {.column width="50%"}
-En esta tabla nos damos cuenta de que, en todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Además, la mayor cantidad de mujeres, se concentra en la opción que demuestra un menor consumo, siendo esta la del consumo mensual. 
-Esta conclusión fue esperada, ya que, como sabemos, al vivir en una sociedad heteropatriarcal, la formación valórica y educativa de los sujetos, lleva un sesgo de género que atribuye esteriotipos a cada uno de ellos. Es así que, las mujeres se consideran como sujetas sensibles que expresan sus sentimientos, mientras que los hombres deben ser fuertes, protectores, valientes... No es raro haber escuchado la creencia de que "los hombres no lloran". Tal como plantea [@ramos-lira] los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. "La depresión puede estar “escondida” detrás de comportamientos adictivos y de riesgo, así como detrás de la irritabilidad e impulsividad." (p.275)
+En todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Ademas, la mayor cantidad de mujeres se posiciona en la opción que demuestra menos consumo de alcohol, siendo esta de manera mensual. Esto puede deberse a que los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. A la vez, según [@ramos-lira], la depresión puede estar escondida, detrás de comportamientos adictivos y de riesgos.
 :::
 
 ::: {.column width="50%"}
-![](output/Tabla_de_correlaciones.png)
+![](output/Tabla_de_contingencia.png){width="606"}
 :::
+:::::
 
-::::
-
-#Gráfico 1
+## Gráfico 1
 
 :::: {.columns}
-
-::: {.column width="50%"}
-Viendo este gráfico los resultados resultan novedosos, ya que, como percepción previa se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, como redes sociales, se "incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros."[@cabanillas-rojas2020] Ahora bien, en el entendido de que la encuesta es aplicada a un grupo de personas que va desde los 15 a los 29 años, se pierde un gran tramo de personas que no son mayores de edad y, por lo tanto, en la teoría, no deberían consumir alcohol, por lo que, quizás, esta podría ser una razón para explicar estos resultados.
+::: {.column width="60%"}
+Los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, se "incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros". [@cabanillas-rojas2020] 
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 ![](output/graph1.png)
 :::
+:::::
 
-::::
+## Gráfico 2
 
-
-#Gráfico 2 
-
-:::: {.columns}
-
+::::: columns
 ::: {.column width="50%"}
 Por otra parte, los resultados de este gráfico siguen siendo preocupantes para la población masculina, ya que la mayoría de los/as encuestados/as que responden que su consumo es diario antes que mensual o semanal, son hombres. Esto sólo sigue explicando la tendencia adictiva que tiene este género por las atribuciones socioculturales que se tienen hacia su rol, con expectativas que llevan prácticas de este tipo.
 :::
@@ -64,8 +61,8 @@ Por otra parte, los resultados de este gráfico siguen siendo preocupantes para 
 ::: {.column width="50%"}
 ![](output/graph2.png)
 :::
+:::::
 
-::::
+# Conclusión
 
-#Conclusión
-Como conclusión creemos que es evidente que el sexo de una persona y su respectiva socialización afecta en la relación que establece con el consumo de alcohol. Claramente hay fundamentos socioculturales en nuestra sociedad que explican y sostienen este fenómeno, reproduciéndolo día a día, por lo que consideramos importantes que, para el abordaje de esta temática, se considere la perspectiva de género. 
+A modo de concluir, creemos que es evidente que el sexo de una persona y su respectiva socialización afecta en la relación que establece con el consumo de alcohol. Claramente, hay fundamentos socioculturales en nuestra sociedad que explican y sostienen este fenómeno, reproduciéndolo día a día, por lo que consideramos importantes que, para el abordaje de esta temática, se considere la perspectiva de género.
