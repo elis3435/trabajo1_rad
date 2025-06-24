@@ -29,7 +29,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="presentacion - Elisa M. - Leandro S._files/libs/revealjs/dist/theme/quarto.css">
   <link href="presentacion - Elisa M. - Leandro S._files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentacion - Elisa M. - Leandro S._files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -325,7 +345,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" bibliography="references.bib" data-background-image="input/banner-saludmental.png" data-background-size="contain" class="quarto-title-block center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Consumo de alcohol y genero</h1>
 
 <div class="quarto-title-authors">
@@ -338,8 +358,8 @@ Elisa Matte y Leandro Suárez
 
 </section>
 <section>
-<section id="introducción" class="title-slide slide level1 center">
-<h1>Introducción</h1>
+<section id="problematización" class="title-slide slide level1 center">
+<h1>Problematización</h1>
 <p>Las políticas públicas para la moderación del consumo de alcohol u otras sustancias suelen estar destinadas para un público general y no reparan en focalizaciones necesarias que existen en base al género. Creemos que este análisis puede ser un aporte para formar un posible perfil, en base al sexo de consumidores de bebidas alcoholicas.</p>
 <p>Para ello, se llevó a cabo una investigación sobre la influencia que tiene el sexo de una persona con la frecuencia en la que consume alcohol, utilizando la base de datos pública de la décima Encuesta Nacional de Juventudes del año 2022. Específicamente, la base de datos para jóvenes.</p>
 </section>
@@ -356,22 +376,22 @@ Elisa Matte y Leandro Suárez
 <h2>Tabla de contingencia</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>En todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Ademas, la mayor cantidad de mujeres se posiciona en la opción que demuestra menos consumo de alcohol, siendo esta de manera mensual. Esto puede deberse a que los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. A la vez, según <span class="citation" data-cites="ramos-lira">[@ramos-lira]</span>, la depresión puede estar escondida, detrás de comportamientos adictivos y de riesgos.</p>
+<p>En todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Ademas, la mayor cantidad de mujeres se posiciona en la opción que demuestra menos consumo de alcohol, siendo esta de manera mensual. Esto puede deberse a que los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. A la vez, según <span class="citation" data-cites="ramos-lira">(<a href="#/bibliografía" role="doc-biblioref" onclick="">Ramos-Lira, n.d.</a>)</span>, la depresión puede estar escondida, detrás de comportamientos adictivos y de riesgos.</p>
 </div><div class="column" style="width:50%;">
 <p><img data-src="output/Tabla_de_contingencia.png" width="606"></p>
 </div></div>
 </section>
-<section id="gráfico-1" class="slide level2">
-<h2>Gráfico 1</h2>
+<section id="distribución-de-los-datos" class="slide level2">
+<h2>Distribución de los datos</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>Los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, se “incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros”. <span class="citation" data-cites="cabanillas-rojas2020">[@cabanillas-rojas2020]</span></p>
+<p>Los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, se “incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros”. <span class="citation" data-cites="cabanillas-rojas2020">(<a href="#/bibliografía" role="doc-biblioref" onclick="">Cabanillas-Rojas 2020</a>)</span></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="output/graph1.png"></p>
 </div></div>
 </section>
-<section id="gráfico-2" class="slide level2">
-<h2>Gráfico 2</h2>
+<section id="distribución-de-los-datos-1" class="slide level2">
+<h2>Distribución de los datos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Por otra parte, los resultados de este gráfico siguen siendo preocupantes para la población masculina, ya que la mayoría de los/as encuestados/as que responden que su consumo es diario antes que mensual o semanal, son hombres. Esto sólo sigue explicando la tendencia adictiva que tiene este género por las atribuciones socioculturales que se tienen hacia su rol, con expectativas que llevan prácticas de este tipo.</p>
@@ -379,15 +399,27 @@ Elisa Matte y Leandro Suárez
 <p><img data-src="output/graph2.png"></p>
 </div></div>
 </section></section>
+<section>
 <section id="conclusión" class="title-slide slide level1 center">
 <h1>Conclusión</h1>
 <p>A modo de concluir, creemos que es evidente que el sexo de una persona y su respectiva socialización afecta en la relación que establece con el consumo de alcohol. Claramente, hay fundamentos socioculturales en nuestra sociedad que explican y sostienen este fenómeno, reproduciéndolo día a día, por lo que consideramos importantes que, para el abordaje de esta temática, se considere la perspectiva de género.</p>
+</section>
+<section id="bibliografía" class="slide level2 smaller scrollable">
+<h2>Bibliografía</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cabanillas-rojas2020" class="csl-entry" role="listitem">
+Cabanillas-Rojas, William. 2020. <span>“Consumo de Alcohol y Género En La Población Adolescente Escolarizada Del Perú: Evolución y Retos de Intervención.”</span> <em>Revista Peruana de Medicina Experimental y Salud Pública</em> 37 (1): 148–54. <a href="https://doi.org/10.17843/rpmesp.2020.371.5151">https://doi.org/10.17843/rpmesp.2020.371.5151</a>.
+</div>
+<div id="ref-ramos-lira" class="csl-entry" role="listitem">
+Ramos-Lira, Luciana. n.d. <span>“¿Por qué hablar de género y salud mental?”</span>
+</div>
+</div>
+</section></section>
     </div>
   </div>
 

@@ -1,19 +1,17 @@
 ---
 title: "Consumo de alcohol y genero"
 author: "Elisa Matte y Leandro Suárez"
+bibliography: genero-consumo-de-alcohol.bib
+link-citation: TRUE
 format:
   revealjs: 
     theme: beige
 fontsize: 30px
-slideNumber: true 
+slideNumber: TRUE 
 editor: visual
-title-slide-attributes:
-    data-background-image: input/banner-saludmental.png
-    data-background-size: contain
-    bibliography: references.bib
 ---
 
-# Introducción
+# Problematización
 
 Las políticas públicas para la moderación del consumo de alcohol u otras sustancias suelen estar destinadas para un público general y no reparan en focalizaciones necesarias que existen en base al género. Creemos que este análisis puede ser un aporte para formar un posible perfil, en base al sexo de consumidores de bebidas alcoholicas.
 
@@ -22,14 +20,14 @@ Para ello, se llevó a cabo una investigación sobre la influencia que tiene el 
 ## Presentación de Variables
 
 ::: incremental
--  Sexo: nivel de medición nominal (hombre, mujer).
+-   Sexo: nivel de medición nominal (hombre, mujer).
 
--  Frecuencia de consumo de alcohol: nivel de medición ordinal (Diariamente, mensualmente, semanalmente).
+-   Frecuencia de consumo de alcohol: nivel de medición ordinal (Diariamente, mensualmente, semanalmente).
 :::
 
 ## Tabla de contingencia
 
-:::: {.columns}
+::::: columns
 ::: {.column width="50%"}
 En todos los casos las mujeres tienen un menor consumo de alcohol que los hombres. Ademas, la mayor cantidad de mujeres se posiciona en la opción que demuestra menos consumo de alcohol, siendo esta de manera mensual. Esto puede deberse a que los hombres esconden sus sentimientos, por su dificultad al pedir ayuda y terminan compensando sus malestares por otros medios. A la vez, según [@ramos-lira], la depresión puede estar escondida, detrás de comportamientos adictivos y de riesgos.
 :::
@@ -39,11 +37,11 @@ En todos los casos las mujeres tienen un menor consumo de alcohol que los hombre
 :::
 :::::
 
-## Gráfico 1
+## Distribución de los datos
 
-:::: {.columns}
+::::: columns
 ::: {.column width="60%"}
-Los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, se "incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros". [@cabanillas-rojas2020] 
+Los resultados resultan novedosos, ya que, como percepción previa, se tenía la noción de que en la sociedad chilena el consumo de alcohol es bastante normalizado para los panoramas sociales, por lo que se esperaba que la moda se encontrara en la categoría de consumo semanal. Teniendo en cuenta la visibilización que tienen este tipo de productos por medio de la publicidad y su presencia en medios de comunicación, se "incrementa la probabilidad de que los adolescentes comiencen a consumir esta droga. De acuerdo a esto, se estaría configurando un escenario propicio de acceso y normalización del consumo de alcohol desde la adolescencia para ambos géneros". [@cabanillas-rojas2020]
 :::
 
 ::: {.column width="40%"}
@@ -51,7 +49,7 @@ Los resultados resultan novedosos, ya que, como percepción previa, se tenía la
 :::
 :::::
 
-## Gráfico 2
+## Distribución de los datos
 
 ::::: columns
 ::: {.column width="50%"}
@@ -66,3 +64,5 @@ Por otra parte, los resultados de este gráfico siguen siendo preocupantes para 
 # Conclusión
 
 A modo de concluir, creemos que es evidente que el sexo de una persona y su respectiva socialización afecta en la relación que establece con el consumo de alcohol. Claramente, hay fundamentos socioculturales en nuestra sociedad que explican y sostienen este fenómeno, reproduciéndolo día a día, por lo que consideramos importantes que, para el abordaje de esta temática, se considere la perspectiva de género.
+
+## Bibliografía
