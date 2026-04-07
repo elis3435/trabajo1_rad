@@ -125,3 +125,5 @@ print(graph1)
 ### Interpretación de gráfico
 
 En el gráfico se puede observar una pendiente la cual va en sentido decreciente, lo que indica una correlación negativa, es decir, que a medida que aumenta la satisfacción con la vida en general, disminuye la preocupación reportada por las personas encuestadas. Esta relación es coherente con lo esperado, ya que una mayor satisfacción suele estar asociada a una mejor gestión emocional.
+
+hola
